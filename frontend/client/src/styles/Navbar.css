@@ -1,0 +1,39 @@
+/* Navbar ka Main Container */
+
+.navbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:18px 40px;
+
+}
+
+
+/* Project Name */
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+
+/* User Info */
+
+.user-info{
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
