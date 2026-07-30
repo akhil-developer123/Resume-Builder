@@ -24,6 +24,33 @@ function PersonalInfo({ formData, handleChange }) {
 
             </div>
 
+            {/* Resume Template */}
+            <div className="form-group">
+
+                <label>Select Template</label>
+
+                <select
+                    name="template"
+                    value={formData.template}
+                    onChange={handleChange}
+                >
+
+                    <option value="Classic">
+                        Classic
+                    </option>
+
+                    <option value="Professional">
+                        Professional
+                    </option>
+
+                    <option value="Modern">
+                        Modern
+                    </option>
+
+                </select>
+
+            </div>
+
             {/* Full Name */}
             <div className="form-group">
 

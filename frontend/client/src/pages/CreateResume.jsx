@@ -29,6 +29,7 @@ function CreateResume() {
     const [formData, setFormData] = useState({
 
         title: "",
+        template: "Classic",
 
         fullName: "",
         email: "",
