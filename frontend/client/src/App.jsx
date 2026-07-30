@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 
 // Protected Route import
 import ProtectedRoute from "./routes/ProtectedRoute";
+import ResumePreview from "./pages/ResumePreview";
 
 function App() {
   return (
@@ -50,22 +51,32 @@ function App() {
         }
       />
       <Route
-    path="/my-resumes"
-    element={
-        <ProtectedRoute>
+        path="/my-resumes"
+        element={
+          <ProtectedRoute>
             <MyResumes />
-        </ProtectedRoute>
-    }
-/>
+          </ProtectedRoute>
+        }
+      />
 
-<Route
-    path="/profile"
-    element={
-        <ProtectedRoute>
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
             <Profile />
-        </ProtectedRoute>
-    }
-/>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/edit-resume/:id"
+        element={<CreateResume />}
+      />
+
+      <Route
+        path="/resume/:id"
+        element={<ResumePreview />}
+      />
 
     </Routes>
 

@@ -1,45 +1,24 @@
 const Resume = require("../models/Resume");
 
+
 // Create Resume Controller
 const createResume = async (req, res) => {
 
     try {
 
-        // Frontend se data lena
-        const {
-            title,
-            fullName,
-            email,
-            phone,
-            address,
-            summary,
-            education,
-            skills,
-            experience,
-            projects
-        } = req.body;
+        // Frontend se poora form data lena
+        const resumeData = req.body;
 
-        // Resume Create Karna
-        const resume = await Resume.create({
+        // Logged-in user ki ID add karna
+        resumeData.user = req.user._id;
 
-            // Login User ki ID
-            user: req.user._id,
+        // Database me resume save karna
+        const resume = await Resume.create(resumeData);
 
-            title,
-            fullName,
-            email,
-            phone,
-            address,
-            summary,
-            education,
-            skills,
-            experience,
-            projects
-
-        });
-
+        // Success response
         res.status(201).json({
 
+            success: true,
             message: "Resume Created Successfully",
             resume
 
@@ -49,6 +28,7 @@ const createResume = async (req, res) => {
 
         res.status(500).json({
 
+            success: false,
             message: error.message
 
         });
@@ -56,156 +36,414 @@ const createResume = async (req, res) => {
     }
 
 };
-// Get Logged In User Resumes
-const getMyResumes = async (req, res) => {
 
-    try {
+
+
+// Get All User Resumes
+const getMyResumes = async (req,res)=>{
+
+    try{
 
         const resumes = await Resume.find({
-            user: req.user._id
+            user:req.user._id
         });
 
+
         res.status(200).json({
-            success: true,
-            count: resumes.length,
+
+            success:true,
+            count:resumes.length,
             resumes
+
         });
 
-    } catch (error) {
+
+    }catch(error){
 
         res.status(500).json({
-            message: error.message
+
+            message:error.message
+
         });
 
     }
 
 };
+
+
+
+
 // Get Single Resume
-const getResumeById = async (req, res) => {
+const getResumeById = async(req,res)=>{
 
-    try {
+    try{
 
-        // Resume ID URL se lena
+
         const resume = await Resume.findById(req.params.id);
 
-        // Resume mila ya nahi
-        if (!resume) {
+
+        if(!resume){
+
             return res.status(404).json({
-                message: "Resume Not Found"
+
+                message:"Resume Not Found"
+
             });
+
         }
 
-        // Security Check
-        if (resume.user.toString() !== req.user._id.toString()) {
+
+
+        if(resume.user.toString() !== req.user._id.toString()){
+
             return res.status(401).json({
-                message: "Not Authorized"
+
+                message:"Not Authorized"
+
             });
+
         }
+
+
 
         res.status(200).json({
-            success: true,
+
+            success:true,
             resume
+
         });
 
-    } catch (error) {
+
+
+    }catch(error){
+
 
         res.status(500).json({
-            message: error.message
+
+            message:error.message
+
         });
+
 
     }
 
 };
+
+
+
+
+
 // Update Resume
-const updateResume = async (req, res) => {
+const updateResume = async(req,res)=>{
 
-    try {
 
-        // Resume Find
+    try{
+
+
         const resume = await Resume.findById(req.params.id);
 
-        // Resume Check
-        if (!resume) {
+
+
+        if(!resume){
+
             return res.status(404).json({
-                message: "Resume Not Found"
+
+                message:"Resume Not Found"
+
             });
+
         }
 
-        // Owner Check
-        if (resume.user.toString() !== req.user._id.toString()) {
+
+
+        if(resume.user.toString() !== req.user._id.toString()){
+
             return res.status(401).json({
-                message: "Not Authorized"
+
+                message:"Not Authorized"
+
             });
+
         }
 
-        // Resume Update
+
+
         const updatedResume = await Resume.findByIdAndUpdate(
+
             req.params.id,
+
             req.body,
+
             {
-                new: true,
-                runValidators: true
+                new:true,
+                runValidators:true
             }
+
         );
 
+
+
         res.status(200).json({
-            message: "Resume Updated Successfully",
-            resume: updatedResume
+
+            message:"Resume Updated Successfully",
+
+            resume:updatedResume
+
         });
 
-    } catch (error) {
+
+
+    }catch(error){
+
 
         res.status(500).json({
-            message: error.message
+
+            message:error.message
+
         });
+
 
     }
 
 };
+
+
+
+
+
 // Delete Resume
-const deleteResume = async (req, res) => {
+const deleteResume = async(req,res)=>{
 
-    try {
 
-        // Resume Find
+    try{
+
+
         const resume = await Resume.findById(req.params.id);
 
-        // Resume Exists?
-        if (!resume) {
+
+
+        if(!resume){
+
             return res.status(404).json({
-                message: "Resume Not Found"
+
+                message:"Resume Not Found"
+
             });
+
         }
 
-        // Owner Check
-        if (resume.user.toString() !== req.user._id.toString()) {
+
+
+        if(resume.user.toString() !== req.user._id.toString()){
+
+
             return res.status(401).json({
-                message: "Not Authorized"
+
+                message:"Not Authorized"
+
             });
+
         }
 
-        // Delete Resume
+
+
         await Resume.findByIdAndDelete(req.params.id);
 
+
+
         res.status(200).json({
-            message: "Resume Deleted Successfully"
+
+            message:"Resume Deleted Successfully"
+
         });
 
-    } catch (error) {
+
+
+    }catch(error){
+
 
         res.status(500).json({
-            message: error.message
+
+            message:error.message
+
         });
+
 
     }
 
 };
 
+
+
+
+
+// Rename Resume
+const renameResume = async(req,res)=>{
+
+
+    try{
+
+
+        const {title}=req.body;
+
+
+        const resume = await Resume.findById(req.params.id);
+
+
+
+        if(!resume){
+
+            return res.status(404).json({
+
+                message:"Resume Not Found"
+
+            });
+
+        }
+
+
+
+        if(resume.user.toString() !== req.user._id.toString()){
+
+
+            return res.status(401).json({
+
+                message:"Not Authorized"
+
+            });
+
+        }
+
+
+
+        resume.title = title;
+
+
+        await resume.save();
+
+
+
+        res.status(200).json({
+
+            message:"Resume Renamed Successfully",
+
+            resume
+
+        });
+
+
+
+    }catch(error){
+
+
+        res.status(500).json({
+
+            message:error.message
+
+        });
+
+
+    }
+
+
+};
+
+
+
+
+
+// Duplicate Resume
+const duplicateResume = async(req,res)=>{
+
+
+    try{
+
+
+        const resume = await Resume.findById(req.params.id);
+
+
+
+        if(!resume){
+
+            return res.status(404).json({
+
+                message:"Resume Not Found"
+
+            });
+
+        }
+
+
+
+        if(resume.user.toString() !== req.user._id.toString()){
+
+
+            return res.status(401).json({
+
+                message:"Not Authorized"
+
+            });
+
+        }
+
+
+
+        const copyResume = await Resume.create({
+
+            ...resume.toObject(),
+
+            _id:undefined,
+
+            title:`${resume.title || resume.fullName} Copy`,
+
+            user:req.user._id
+
+        });
+
+
+
+        res.status(201).json({
+
+            message:"Resume Duplicated Successfully",
+
+            resume:copyResume
+
+        });
+
+
+
+    }catch(error){
+
+
+        res.status(500).json({
+
+            message:error.message
+
+        });
+
+
+    }
+
+};
+
+
+
+
+// Export All Functions
 module.exports = {
+
     createResume,
+
     getMyResumes,
+
     getResumeById,
+
     updateResume,
-    deleteResume 
-    
+
+    deleteResume,
+
+    renameResume,
+
+    duplicateResume
+
 };

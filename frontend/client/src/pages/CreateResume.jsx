@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 // React Hook
 import { useState } from "react";
 import api from "../services/api";
@@ -88,6 +89,8 @@ function CreateResume() {
         }
 
     };
+
+    
 
     return (
 

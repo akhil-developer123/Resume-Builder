@@ -2,11 +2,21 @@ const express = require("express");
 const router = express.Router();
 
 const {
+
     createResume,
+
     getMyResumes,
+
     getResumeById,
+
     updateResume,
-    deleteResume
+
+    deleteResume,
+
+    renameResume,
+
+    duplicateResume
+
 } = require("../controllers/resumeController");
 
 // Middleware Import
@@ -18,6 +28,11 @@ router.get("/", protect, getMyResumes);
 router.get("/:id", protect, getResumeById);
 router.put("/:id", protect, updateResume);
 router.delete("/:id", protect, deleteResume);
+// Rename Resume
+router.put("/rename/:id", protect, renameResume);
+
+// Duplicate Resume
+router.post("/duplicate/:id", protect, duplicateResume);
 
 
 module.exports = router;

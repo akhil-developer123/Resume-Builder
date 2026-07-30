@@ -1,0 +1,23 @@
+.preview{
+
+    width:800px;
+
+    margin:30px auto;
+
+    background:white;
+
+    padding:40px;
+
+}
+
+.preview h1{
+
+    text-align:center;
+
+}
+
+.preview hr{
+
+    margin:20px 0;
+
+}
