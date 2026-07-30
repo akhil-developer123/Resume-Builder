@@ -9,6 +9,21 @@ function PersonalInfo({ formData, handleChange }) {
             {/* Section Heading */}
             <h2>Personal Information</h2>
 
+            {/* Resume Title */}
+            <div className="form-group">
+
+                <label>Resume Title</label>
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Example: Frontend Developer Resume"
+                    value={formData.title}
+                    onChange={handleChange}
+                />
+
+            </div>
+
             {/* Full Name */}
             <div className="form-group">
 

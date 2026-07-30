@@ -9,6 +9,12 @@ const resumeSchema = new mongoose.Schema({
         required: true
     },
 
+    // Resume Title
+    title: {
+        type: String,
+        default: "Untitled Resume"
+    },
+
     // Personal Information
     fullName: String,
     email: String,

@@ -28,6 +28,8 @@ function CreateResume() {
     // Resume Form State
     const [formData, setFormData] = useState({
 
+        title: "",
+
         fullName: "",
         email: "",
         phone: "",
