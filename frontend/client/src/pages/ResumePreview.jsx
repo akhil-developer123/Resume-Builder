@@ -49,33 +49,60 @@ function ResumePreview() {
     };
 
     // PDF Download Function
-    const downloadPDF = async () => {
+   // Professional PDF Download
+const downloadPDF = async () => {
 
-        // Resume Div lena
-        const input = document.getElementById("resume");
+    // Resume Div lena
+    const input = document.getElementById("resume");
 
-        // HTML ko Image banana
-        const canvas = await html2canvas(input);
+    // High Quality Canvas
+    const canvas = await html2canvas(input, {
 
-        const imgData = canvas.toDataURL("image/png");
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff"
 
-        // PDF Create
-        const pdf = new jsPDF("p", "mm", "a4");
+    });
 
-        // Image PDF me Add
-        pdf.addImage(
-            imgData,
-            "PNG",
-            0,
-            0,
-            210,
-            297
-        );
+    // Image Data
+    const imgData = canvas.toDataURL("image/png");
 
-        // Download
-        pdf.save("Resume.pdf");
+    // PDF Create
+    const pdf = new jsPDF({
 
-    };
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+
+    });
+
+    // A4 Size
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+
+    const pdfHeight =
+        (canvas.height * pdfWidth) / canvas.width;
+
+    // Image Add
+    pdf.addImage(
+
+        imgData,
+
+        "PNG",
+
+        0,
+
+        0,
+
+        pdfWidth,
+
+        pdfHeight
+
+    );
+
+    // Download
+    pdf.save(`${resume.fullName || "Resume"}.pdf`);
+
+};
 
     // Loading
     if (!resume) {
