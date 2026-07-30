@@ -98,91 +98,180 @@ function ResumePreview() {
 
             {/* Resume */}
             <div
-                className="preview"
                 id="resume"
+                className={`preview ${resume.template.toLowerCase()}`}
             >
 
-                {/* Personal Info */}
+                {/* Header */}
 
-                <h1>{resume.fullName}</h1>
+                <div className="resume-header">
 
-                <p>{resume.email}</p>
+                    <h1>{resume.fullName}</h1>
 
-                <p>{resume.phone}</p>
+                    <h3>{resume.title}</h3>
 
-                <p>{resume.address}</p>
+                    <div className="contact-info">
+
+                        <span>📧 {resume.email}</span>
+
+                        <span>📞 {resume.phone}</span>
+
+                        <span>📍 {resume.address}</span>
+
+                    </div>
+
+                </div>
 
                 <hr />
 
                 {/* Objective */}
 
-                <h2>Career Objective</h2>
+                <div className="section">
 
-                <p>{resume.objective}</p>
+                    <h2>Career Objective</h2>
+
+                    <p>{resume.objective}</p>
+
+                </div>
 
                 <hr />
 
                 {/* Education */}
 
-                <h2>Education</h2>
+                <div className="section">
 
-                <p><b>College :</b> {resume.college}</p>
+                    <h2>Education</h2>
 
-                <p><b>Degree :</b> {resume.degree}</p>
+                    <p><strong>College :</strong> {resume.college}</p>
 
-                <p><b>Branch :</b> {resume.branch}</p>
+                    <p><strong>Degree :</strong> {resume.degree}</p>
 
-                <p><b>University :</b> {resume.university}</p>
+                    <p><strong>Branch :</strong> {resume.branch}</p>
 
-                <p><b>Passing Year :</b> {resume.passingYear}</p>
+                    <p><strong>University :</strong> {resume.university}</p>
+
+                    <p><strong>Passing Year :</strong> {resume.passingYear}</p>
+
+                    <p><strong>CGPA :</strong> {resume.cgpa}</p>
+
+                </div>
 
                 <hr />
 
                 {/* Skills */}
 
-                <h2>Skills</h2>
+                <div className="section">
 
-                <p>{resume.skills}</p>
+                    <h2>Skills</h2>
+
+                    <div className="badge-container">
+
+                        {
+                            resume.skills
+                                ?.split(",")
+                                .map((skill, index) => (
+
+                                    <span
+                                        key={index}
+                                        className="badge"
+                                    >
+
+                                        {skill.trim()}
+
+                                    </span>
+
+                                ))
+                        }
+
+                    </div>
+
+                </div>
 
                 <hr />
 
                 {/* Experience */}
 
-                <h2>Experience</h2>
+                <div className="section">
 
-                <p><b>Company :</b> {resume.company}</p>
+                    <h2>Experience</h2>
 
-                <p><b>Job Title :</b> {resume.jobTitle}</p>
+                    <p><strong>Company :</strong> {resume.company}</p>
 
-                <p><b>Description :</b> {resume.jobDescription}</p>
+                    <p><strong>Job Title :</strong> {resume.jobTitle}</p>
+
+                    <p><strong>Location :</strong> {resume.jobLocation}</p>
+
+                    <p><strong>Duration :</strong> {resume.startDate} - {resume.endDate}</p>
+
+                    <p>{resume.jobDescription}</p>
+
+                </div>
 
                 <hr />
 
                 {/* Projects */}
 
-                <h2>Projects</h2>
+                <div className="section">
 
-                <p><b>Project :</b> {resume.projectTitle}</p>
+                    <h2>Projects</h2>
 
-                <p><b>Technologies :</b> {resume.technologies}</p>
+                    <p><strong>Project :</strong> {resume.projectTitle}</p>
 
-                <p><b>Description :</b> {resume.projectDescription}</p>
+                    <p><strong>Technologies :</strong> {resume.technologies}</p>
+
+                    <p>{resume.projectDescription}</p>
+
+                    <p>
+
+                        <strong>GitHub :</strong>
+
+                        {resume.githubLink}
+
+                    </p>
+
+                </div>
 
                 <hr />
-
                 {/* Certification */}
 
-                <h2>Certification</h2>
+                <div className="section">
 
-                <p>{resume.certification}</p>
+                    <h2>Certification</h2>
+
+                    <p>{resume.certification}</p>
+
+                </div>
 
                 <hr />
 
                 {/* Languages */}
 
-                <h2>Languages</h2>
+                <div className="section">
 
-                <p>{resume.languages}</p>
+                    <h2>Languages</h2>
+
+                    <div className="badge-container">
+
+                        {
+                            resume.languages
+                                ?.split(",")
+                                .map((language, index) => (
+
+                                    <span
+                                        key={index}
+                                        className="badge"
+                                    >
+
+                                        {language.trim()}
+
+                                    </span>
+
+                                ))
+                        }
+
+                    </div>
+
+                </div>
 
             </div>
 

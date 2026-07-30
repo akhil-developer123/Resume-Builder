@@ -21,3 +21,141 @@
     margin:20px 0;
 
 }
+
+/* Classic Template */
+
+.classic{
+
+    background:white;
+
+}
+
+
+
+/* Professional Template */
+
+.professional{
+
+    background:#f5f5f5;
+
+    border-left:10px solid #1e3a8a;
+
+}
+
+
+
+/* Modern Template */
+
+.modern{
+
+    background:#eef7ff;
+
+    border-top:10px solid #2563eb;
+
+}
+
+/* Resume Header */
+
+.resume-header{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.resume-header h1{
+
+    margin:0;
+
+    font-size:34px;
+
+}
+
+.resume-header h3{
+
+    margin-top:10px;
+
+    color:#2563eb;
+
+    font-weight:500;
+
+}
+
+.contact-info{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    margin-top:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.contact-info span{
+
+    font-size:15px;
+
+}
+
+/* Resume Sections */
+
+.section{
+
+    margin-bottom:25px;
+
+}
+
+.section h2{
+
+    color:#2563eb;
+
+    border-bottom:2px solid #2563eb;
+
+    padding-bottom:6px;
+
+    margin-bottom:15px;
+
+}
+
+.section p{
+
+    margin:8px 0;
+
+    line-height:1.6;
+
+}
+
+/* Badge Container */
+
+.badge-container{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+/* Badge */
+
+.badge{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:20px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
