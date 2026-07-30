@@ -1,6 +1,8 @@
-import { useParams } from "react-router-dom";
+// React Router
+import { useNavigate, useParams } from "react-router-dom";
+
 // React Hook
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../services/api";
 
 // CSS
@@ -16,6 +18,12 @@ import Certifications from "../components/ResumeForm/Certifications";
 import Languages from "../components/ResumeForm/Languages";
 
 function CreateResume() {
+
+    // Navigation Hook
+    const navigate = useNavigate();
+
+    // URL se Resume ID lena
+    const { id } = useParams();
 
     // Resume Form State
     const [formData, setFormData] = useState({
@@ -66,15 +74,59 @@ function CreateResume() {
 
     };
 
+   
+    const fetchResume = async () => {
+
+        try {
+
+            const response = await api.get(`/resume/${id}`);
+
+            // Form me purana data bhar dena
+            setFormData(response.data.resume);
+
+        } catch (error) {
+
+            console.log(error.response?.data);
+
+        }
+
+    };
+
+    // Agar Edit Mode hai to Resume Load karo
+    useEffect(() => {
+
+        if (id) {
+
+            fetchResume();
+
+        }
+
+    }, [id]);
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
         try {
 
-            const response = await api.post("/resume", formData);
+            let response;
+
+            // Agar ID hai to Resume Update karo
+            if (id) {
+
+                response = await api.put(`/resume/${id}`, formData);
+
+            } else {
+
+                // Naya Resume Create karo
+                response = await api.post("/resume", formData);
+
+            }
 
             alert(response.data.message);
+
+            // Save hone ke baad My Resumes page par bhejna
+            navigate("/my-resumes");
 
             console.log(response.data);
 
@@ -90,13 +142,15 @@ function CreateResume() {
 
     };
 
-    
+
 
     return (
 
         <div className="create-page">
 
-            <h1>Create Resume</h1>
+            <h1>
+                {id ? "Edit Resume" : "Create Resume"}
+            </h1>
 
             {/* Resume Form */}
             <form onSubmit={handleSubmit}>
@@ -105,6 +159,7 @@ function CreateResume() {
                     formData={formData}
                     handleChange={handleChange}
                 />
+                // Edit Mode me Resume Fetch karna
 
                 <Education
                     formData={formData}
@@ -141,7 +196,7 @@ function CreateResume() {
                     type="submit"
                     className="save-btn"
                 >
-                    Save Resume
+                    {id ? "Update Resume" : "Save Resume"}
                 </button>
 
             </form>
