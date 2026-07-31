@@ -77,7 +77,7 @@ function CreateResume() {
 
     };
 
-   
+
     const fetchResume = async () => {
 
         try {
@@ -105,6 +105,42 @@ function CreateResume() {
         }
 
     }, [id]);
+
+    // AI Suggestion
+    const improveWithAI = async () => {
+
+        try {
+
+            const response = await api.post(
+
+                "/ai/improve",
+
+                {
+                    objective: formData.objective
+                }
+
+            );
+
+            // Objective Update
+            setFormData({
+
+                ...formData,
+
+                objective: response.data.objective
+
+            });
+
+            alert("AI Suggestion Applied Successfully");
+
+        } catch (error) {
+
+            console.log(error.response?.data);
+
+            alert("AI Suggestion Failed");
+
+        }
+
+    };
 
     const handleSubmit = async (e) => {
 
@@ -162,6 +198,18 @@ function CreateResume() {
                     formData={formData}
                     handleChange={handleChange}
                 />
+
+                <div className="ai-btn-container">
+
+                    <button
+                        type="button"
+                        className="ai-btn"
+                        onClick={improveWithAI}
+                    >
+                        ✨ Improve Objective with AI
+                    </button>
+
+                </div>
                 // Edit Mode me Resume Fetch karna
 
                 <Education

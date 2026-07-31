@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const protect = require("./middleware/authMiddleware");
+const aiRoutes = require("./routes/aiRoutes");
 
 const connectDB = require("./config/db");
 
@@ -17,6 +18,7 @@ app.use(express.json());
 // Auth Routes Import
 const authRoutes = require("./routes/authRoutes");
 const resumeRoutes = require("./routes/resumeRoutes");
+app.use("/api/ai", aiRoutes);
 
 app.get("/", (req, res) => {
     res.send("Backend Running...");
