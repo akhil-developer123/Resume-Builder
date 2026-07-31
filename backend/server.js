@@ -3,8 +3,9 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const protect = require("./middleware/authMiddleware");
 const aiRoutes = require("./routes/aiRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 
-const connectDB = require("./config/db");
+const connectDB = require("./config/db"); 
 
 dotenv.config();
 
@@ -18,7 +19,6 @@ app.use(express.json());
 // Auth Routes Import
 const authRoutes = require("./routes/authRoutes");
 const resumeRoutes = require("./routes/resumeRoutes");
-app.use("/api/ai", aiRoutes);
 
 app.get("/", (req, res) => {
     res.send("Backend Running...");
@@ -42,6 +42,8 @@ app.get("/api/profile", protect, (req, res) => {
 // Auth Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
+app.use("/api/ai", aiRoutes);
+app.use("/api/upload", uploadRoutes);
 
 const PORT = process.env.PORT || 5000;
 

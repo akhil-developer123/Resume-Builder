@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import CreateResume from "./pages/CreateResume";
 import MyResumes from "./pages/MyResumes";
 import Profile from "./pages/Profile";
+import ImproveResume from "./pages/ImproveResume";
 
 // Protected Route import
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -47,6 +48,14 @@ function App() {
         element={
           <ProtectedRoute>
             <CreateResume />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/improve-resume"
+        element={
+          <ProtectedRoute>
+            <ImproveResume />
           </ProtectedRoute>
         }
       />

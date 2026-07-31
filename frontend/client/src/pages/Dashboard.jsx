@@ -72,6 +72,13 @@ function Dashboard() {
                             onClick={() => navigate("/create-resume")}
                         />
 
+                        {/* Improve Resume */}
+                        <DashboardCard
+                            icon="✨"
+                            title="Improve Resume"
+                            onClick={() => navigate("/improve-resume")}
+                        />
+
                         {/* My Resumes */}
                         <DashboardCard
                             icon="📁"

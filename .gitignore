@@ -4,6 +4,9 @@
 # Environment files
 **/.env
 
+# Uploaded Files
+backend/uploads/
+
 # Logs
 *.log
 
