@@ -1,10 +1,16 @@
-// Upload Resume Controller
+// File System
+const fs = require("fs");
 
+// PDF Parser
+const pdf = require("pdf-parse");
+
+
+// Upload Resume Controller
 const uploadResume = async (req, res) => {
 
     try {
 
-        // Check file upload
+        // Check File
         if (!req.file) {
 
             return res.status(400).json({
@@ -17,6 +23,18 @@ const uploadResume = async (req, res) => {
 
         }
 
+        // PDF Path
+        const filePath = req.file.path;
+
+        // PDF Read
+        const dataBuffer = fs.readFileSync(filePath);
+
+        // PDF Text Extract
+        const pdfData = await pdf(dataBuffer);
+
+        console.log(typeof pdf);
+        console.log(pdf);
+
         // Success Response
         res.status(200).json({
 
@@ -24,11 +42,15 @@ const uploadResume = async (req, res) => {
 
             message: "Resume Uploaded Successfully",
 
-            file: req.file.filename
+            file: req.file.filename,
+
+            text: pdfData.text
 
         });
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         res.status(500).json({
 

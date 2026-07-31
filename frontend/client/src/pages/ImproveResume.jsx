@@ -67,9 +67,32 @@ function ImproveResume() {
 
             );
 
+            // Upload Success
             alert(response.data.message);
 
-            console.log(response.data);
+            // AI Improve API Call
+            const aiResponse = await api.post(
+
+                "/ai/improve",
+
+                {
+
+                    objective: response.data.text
+
+                }
+
+            );
+
+            // AI Result Page
+            navigate("/ai-result", {
+
+                state: {
+
+                    result: aiResponse.data.result
+
+                }
+
+            });
 
         }
 
@@ -139,13 +162,13 @@ function ImproveResume() {
 
                     loading
 
-                    ?
+                        ?
 
-                    "Uploading..."
+                        "Uploading..."
 
-                    :
+                        :
 
-                    "Upload Resume"
+                        "Upload Resume"
 
                 }
 

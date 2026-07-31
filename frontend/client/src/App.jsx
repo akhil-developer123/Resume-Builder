@@ -9,6 +9,8 @@ import CreateResume from "./pages/CreateResume";
 import MyResumes from "./pages/MyResumes";
 import Profile from "./pages/Profile";
 import ImproveResume from "./pages/ImproveResume";
+import AIResult from "./pages/AIResult";
+
 
 // Protected Route import
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -85,6 +87,15 @@ function App() {
       <Route
         path="/resume/:id"
         element={<ResumePreview />}
+      />
+
+      <Route
+        path="/ai-result"
+        element={
+          <ProtectedRoute>
+            <AIResult />
+          </ProtectedRoute>
+        }
       />
 
     </Routes>

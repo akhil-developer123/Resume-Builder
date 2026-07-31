@@ -5,15 +5,17 @@ const improveResume = async (req, res) => {
 
     try {
 
-        // Frontend se data lena
+        // Frontend se Data lena
         const { objective } = req.body;
 
-        let improvedObjective = objective;
+        // Improved Summary
+        let improvedSummary =
+            "Highly motivated and detail-oriented Full Stack Developer with strong problem-solving skills, a passion for continuous learning, and hands-on experience in building responsive web applications using the MERN Stack.";
 
-        // Simple AI Rules
+        // Agar Objective diya hai
         if (objective) {
 
-            improvedObjective =
+            improvedSummary =
                 "Highly motivated and detail-oriented individual with strong problem-solving abilities and a passion for continuous learning. Seeking an opportunity to contribute effectively while enhancing professional skills.";
 
         }
@@ -23,11 +25,51 @@ const improveResume = async (req, res) => {
 
             success: true,
 
-            objective: improvedObjective
+            message: "Resume Improved Successfully",
+
+            result: {
+
+                improvedSummary,
+
+                atsScore: 84,
+
+                skills: [
+
+                    "JavaScript",
+
+                    "React",
+
+                    "Node.js",
+
+                    "Express.js",
+
+                    "MongoDB",
+
+                    "Git",
+
+                    "REST API"
+
+                ],
+
+                missingKeywords: [
+
+                    "Leadership",
+
+                    "Team Collaboration",
+
+                    "Communication",
+
+                    "Problem Solving"
+
+                ]
+
+            }
 
         });
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         res.status(500).json({
 
