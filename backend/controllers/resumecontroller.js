@@ -1,66 +1,38 @@
 const Resume = require("../models/Resume");
 
 
-// Create Resume Controller
+
+// Create Resume
+
 const createResume = async (req, res) => {
 
     try {
 
-        // Frontend se poora form data lena
-        const resumeData = req.body;
+        const resume = await Resume.create({
 
-        // Logged-in user ki ID add karna
-        resumeData.user = req.user._id;
+            userId: req.user.id,
 
-        // Database me resume save karna
-        const resume = await Resume.create(resumeData);
+            ...req.body
 
-        // Success response
+        });
+
+
         res.status(201).json({
 
             success: true,
+
             message: "Resume Created Successfully",
+
             resume
 
         });
 
-    } catch (error) {
+
+    } catch(error) {
 
         res.status(500).json({
 
-            success: false,
-            message: error.message
-
-        });
-
-    }
-
-};
-
-
-
-// Get All User Resumes
-const getMyResumes = async (req,res)=>{
-
-    try{
-
-        const resumes = await Resume.find({
-            user:req.user._id
-        });
-
-
-        res.status(200).json({
-
-            success:true,
-            count:resumes.length,
-            resumes
-
-        });
-
-
-    }catch(error){
-
-        res.status(500).json({
+            success:false,
 
             message:error.message
 
@@ -73,18 +45,81 @@ const getMyResumes = async (req,res)=>{
 
 
 
-// Get Single Resume
-const getResumeById = async(req,res)=>{
+
+
+
+// Get My All Resumes
+
+const getMyResumes = async(req,res)=>{
 
     try{
 
 
-        const resume = await Resume.findById(req.params.id);
+        const resumes = await Resume.find({
+
+            userId:req.user.id
+
+        });
+
+
+
+        res.status(200).json({
+
+            success:true,
+
+            resumes
+
+        });
+
+
+
+    }catch(error){
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:error.message
+
+        });
+
+
+    }
+
+};
+
+
+
+
+
+
+
+
+// Get Single Resume By ID
+
+
+const getResumeById = async(req,res)=>{
+
+
+    try{
+
+
+        const resume = await Resume.findOne({
+
+            _id:req.params.id,
+
+            userId:req.user.id
+
+        });
+
 
 
         if(!resume){
 
             return res.status(404).json({
+
+                success:false,
 
                 message:"Resume Not Found"
 
@@ -94,21 +129,10 @@ const getResumeById = async(req,res)=>{
 
 
 
-        if(resume.user.toString() !== req.user._id.toString()){
-
-            return res.status(401).json({
-
-                message:"Not Authorized"
-
-            });
-
-        }
-
-
-
         res.status(200).json({
 
             success:true,
+
             resume
 
         });
@@ -120,63 +144,49 @@ const getResumeById = async(req,res)=>{
 
         res.status(500).json({
 
+            success:false,
+
             message:error.message
 
         });
 
-
     }
 
+
 };
+
+
+
 
 
 
 
 
 // Update Resume
+
+
 const updateResume = async(req,res)=>{
 
 
     try{
 
 
-        const resume = await Resume.findById(req.params.id);
+        const resume = await Resume.findOneAndUpdate(
 
+            {
 
+                _id:req.params.id,
 
-        if(!resume){
+                userId:req.user.id
 
-            return res.status(404).json({
-
-                message:"Resume Not Found"
-
-            });
-
-        }
-
-
-
-        if(resume.user.toString() !== req.user._id.toString()){
-
-            return res.status(401).json({
-
-                message:"Not Authorized"
-
-            });
-
-        }
-
-
-
-        const updatedResume = await Resume.findByIdAndUpdate(
-
-            req.params.id,
+            },
 
             req.body,
 
             {
-                new:true,
-                runValidators:true
+
+                new:true
+
             }
 
         );
@@ -185,9 +195,11 @@ const updateResume = async(req,res)=>{
 
         res.status(200).json({
 
+            success:true,
+
             message:"Resume Updated Successfully",
 
-            resume:updatedResume
+            resume
 
         });
 
@@ -198,6 +210,8 @@ const updateResume = async(req,res)=>{
 
         res.status(500).json({
 
+            success:false,
+
             message:error.message
 
         });
@@ -205,53 +219,39 @@ const updateResume = async(req,res)=>{
 
     }
 
+
 };
 
 
 
 
 
+
+
+
+
 // Delete Resume
+
+
 const deleteResume = async(req,res)=>{
 
 
     try{
 
 
-        const resume = await Resume.findById(req.params.id);
+        await Resume.findOneAndDelete({
 
+            _id:req.params.id,
 
+            userId:req.user.id
 
-        if(!resume){
-
-            return res.status(404).json({
-
-                message:"Resume Not Found"
-
-            });
-
-        }
-
-
-
-        if(resume.user.toString() !== req.user._id.toString()){
-
-
-            return res.status(401).json({
-
-                message:"Not Authorized"
-
-            });
-
-        }
-
-
-
-        await Resume.findByIdAndDelete(req.params.id);
+        });
 
 
 
         res.status(200).json({
+
+            success:true,
 
             message:"Resume Deleted Successfully"
 
@@ -264,6 +264,8 @@ const deleteResume = async(req,res)=>{
 
         res.status(500).json({
 
+            success:false,
+
             message:error.message
 
         });
@@ -271,59 +273,56 @@ const deleteResume = async(req,res)=>{
 
     }
 
+
 };
 
 
 
 
 
+
+
+
+
+
 // Rename Resume
+
+
 const renameResume = async(req,res)=>{
 
 
     try{
 
 
-        const {title}=req.body;
+        const resume = await Resume.findOneAndUpdate(
 
+            {
 
-        const resume = await Resume.findById(req.params.id);
+                _id:req.params.id,
 
+                userId:req.user.id
 
+            },
 
-        if(!resume){
+            {
 
-            return res.status(404).json({
+                title:req.body.title
 
-                message:"Resume Not Found"
+            },
 
-            });
+            {
 
-        }
+                new:true
 
+            }
 
-
-        if(resume.user.toString() !== req.user._id.toString()){
-
-
-            return res.status(401).json({
-
-                message:"Not Authorized"
-
-            });
-
-        }
-
-
-
-        resume.title = title;
-
-
-        await resume.save();
+        );
 
 
 
         res.status(200).json({
+
+            success:true,
 
             message:"Resume Renamed Successfully",
 
@@ -338,6 +337,8 @@ const renameResume = async(req,res)=>{
 
         res.status(500).json({
 
+            success:false,
+
             message:error.message
 
         });
@@ -352,20 +353,34 @@ const renameResume = async(req,res)=>{
 
 
 
+
+
+
+
 // Duplicate Resume
+
+
 const duplicateResume = async(req,res)=>{
 
 
     try{
 
 
-        const resume = await Resume.findById(req.params.id);
+        const resume = await Resume.findOne({
+
+            _id:req.params.id,
+
+            userId:req.user.id
+
+        });
 
 
 
         if(!resume){
 
             return res.status(404).json({
+
+                success:false,
 
                 message:"Resume Not Found"
 
@@ -375,28 +390,21 @@ const duplicateResume = async(req,res)=>{
 
 
 
-        if(resume.user.toString() !== req.user._id.toString()){
+        const duplicate = await Resume.create({
 
+            userId:req.user.id,
 
-            return res.status(401).json({
+            title: resume.title + " Copy",
 
-                message:"Not Authorized"
+            personalInfo: resume.personalInfo,
 
-            });
+            education: resume.education,
 
-        }
+            experience: resume.experience,
 
+            skills: resume.skills,
 
-
-        const copyResume = await Resume.create({
-
-            ...resume.toObject(),
-
-            _id:undefined,
-
-            title:`${resume.title || resume.fullName} Copy`,
-
-            user:req.user._id
+            projects: resume.projects
 
         });
 
@@ -404,9 +412,11 @@ const duplicateResume = async(req,res)=>{
 
         res.status(201).json({
 
+            success:true,
+
             message:"Resume Duplicated Successfully",
 
-            resume:copyResume
+            resume:duplicate
 
         });
 
@@ -417,6 +427,8 @@ const duplicateResume = async(req,res)=>{
 
         res.status(500).json({
 
+            success:false,
+
             message:error.message
 
         });
@@ -424,13 +436,17 @@ const duplicateResume = async(req,res)=>{
 
     }
 
+
 };
 
 
 
 
-// Export All Functions
+
+
+
 module.exports = {
+
 
     createResume,
 
@@ -445,5 +461,6 @@ module.exports = {
     renameResume,
 
     duplicateResume
+
 
 };

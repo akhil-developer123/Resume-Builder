@@ -4,7 +4,6 @@ const fs = require("fs");
 // PDF Parser
 const pdf = require("pdf-parse");
 
-
 // Upload Resume Controller
 const uploadResume = async (req, res) => {
 
@@ -32,8 +31,65 @@ const uploadResume = async (req, res) => {
         // PDF Text Extract
         const pdfData = await pdf(dataBuffer);
 
-        console.log(typeof pdf);
-        console.log(pdf);
+        // ----------------------------
+        // Dummy AI Analysis
+        // ----------------------------
+
+        const result = {
+
+            improvedSummary:
+                "Highly motivated Full Stack Developer with strong knowledge of React, Node.js, Express.js and MongoDB. Passionate about building scalable web applications and continuously improving technical skills.",
+
+            skills: [
+
+                "React.js",
+                "Node.js",
+                "Express.js",
+                "MongoDB",
+                "JavaScript",
+                "HTML",
+                "CSS",
+                "Git"
+
+            ],
+
+            atsScore: 88,
+
+            strengths: [
+
+                "Good Education",
+                "Technical Skills",
+                "Project Experience"
+
+            ],
+
+            weaknesses: [
+
+                "Career Objective can be stronger",
+                "Add more Projects",
+                "Add Certifications"
+
+            ],
+
+            suggestions: [
+
+                "Improve Career Objective",
+                "Add GitHub Profile",
+                "Mention Internship Experience",
+                "Include Soft Skills"
+
+            ],
+
+            missingKeywords: [
+
+                "REST API",
+                "JWT",
+                "Problem Solving",
+                "Team Collaboration"
+
+            ]
+
+        };
 
         // Success Response
         res.status(200).json({
@@ -44,7 +100,9 @@ const uploadResume = async (req, res) => {
 
             file: req.file.filename,
 
-            text: pdfData.text
+            text: pdfData.text,
+
+            result
 
         });
 

@@ -1,66 +1,115 @@
 const mongoose = require("mongoose");
 
-const resumeSchema = new mongoose.Schema({
 
-    // Resume Owner
-    user: {
+const resumeSchema = new mongoose.Schema(
+{
+
+    userId: {
+
         type: mongoose.Schema.Types.ObjectId,
+
         ref: "User",
-        required: true
+
+        required:true
+
     },
 
-    // Resume Title
+     // Resume Title
     title: {
-        type: String,
-        default: "Untitled Resume"
+
+        type:String,
+
+        default:"My Resume"
+
     },
 
-    // Resume Template
-    template: {
-        type: String,
-        default: "Classic"
+
+    personalInfo: {
+
+        fullName:String,
+
+        email:String,
+
+        phone:String,
+
+        address:String,
+
+        linkedin:String,
+
+        github:String
+
     },
 
-    // Personal Information
-    fullName: String,
-    email: String,
-    phone: String,
-    address: String,
-    objective: String,
 
-    // Education
-    college: String,
-    degree: String,
-    branch: String,
-    university: String,
-    passingYear: String,
-    cgpa: String,
+    education:[
 
-    // Experience
-    company: String,
-    jobTitle: String,
-    jobLocation: String,
-    startDate: String,
-    endDate: String,
-    jobDescription: String,
+        {
 
-    // Skills
-    skills: String,
+            degree:String,
 
-    // Projects
-    projectTitle: String,
-    technologies: String,
-    projectDescription: String,
-    githubLink: String,
+            institution:String,
 
-    // Certifications
-    certification: String,
+            year:String
 
-    // Languages
-    languages: String
+        }
 
-}, {
-    timestamps: true
-});
+    ],
 
-module.exports = mongoose.model("Resume", resumeSchema);
+
+
+    experience:[
+
+        {
+
+            company:String,
+
+            role:String,
+
+            duration:String,
+
+            description:String
+
+        }
+
+    ],
+
+
+
+    skills:[String],
+
+
+
+    projects:[
+
+        {
+
+            title:String,
+
+            description:String,
+
+            technologies:String
+
+        }
+
+    ],
+
+
+
+    createdAt:{
+
+        type:Date,
+
+        default:Date.now
+
+    }
+
+
+}
+
+);
+
+
+module.exports = mongoose.model(
+    "Resume",
+    resumeSchema
+);

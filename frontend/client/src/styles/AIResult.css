@@ -1,34 +1,192 @@
-.ai-result{
+.ai-result {
 
-    width:80%;
-    margin:40px auto;
-
-}
-
-.result-card{
-
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    min-height: 100vh;
+    padding: 40px;
+    background: #f5f7fb;
+    font-family: Arial, sans-serif;
 
 }
 
-.result-card h2{
 
-    margin-bottom:10px;
 
-}
+.ai-result h1 {
 
-.result-card ul{
-
-    padding-left:20px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1f2937;
 
 }
 
-.result-card li{
 
-    margin-bottom:8px;
+
+.result-card {
+
+    background: white;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+    transition: 0.3s;
+
+}
+
+
+
+.result-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+
+.result-card h2 {
+
+    margin-bottom: 15px;
+    color: #2563eb;
+
+}
+
+
+
+.result-card p {
+
+    color: #374151;
+    line-height: 1.7;
+    font-size: 16px;
+
+}
+
+
+
+.result-card ul {
+
+    padding-left: 20px;
+
+}
+
+
+
+.result-card li {
+
+    margin: 10px 0;
+    color: #374151;
+
+}
+
+
+
+
+
+/* ATS Score Card */
+
+
+.score-card {
+
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+}
+
+
+
+.score-card h2 {
+
+    color:white;
+
+}
+
+
+
+.score-card h1 {
+
+    color:white;
+    font-size:45px;
+
+}
+
+
+
+
+
+/* Buttons */
+
+
+.ai-result button {
+
+    display:block;
+
+    margin:20px auto;
+
+    padding:12px 30px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+
+
+.ai-result button:hover {
+
+    background:#1d4ed8;
+
+    transform:scale(1.05);
+
+}
+
+
+
+
+
+
+/* Responsive */
+
+
+@media(max-width:768px){
+
+
+    .ai-result{
+
+        padding:20px;
+
+    }
+
+
+    .result-card{
+
+        padding:20px;
+
+    }
+
+
+    .score-card h1{
+
+        font-size:35px;
+
+    }
+
 
 }
