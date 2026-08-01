@@ -22,6 +22,9 @@ function ResumePreview() {
     // Resume State
     const [resume, setResume] = useState(null);
 
+    // Selected Template
+    const [template, setTemplate] = useState("modern");
+
     // Page Load hote hi Resume Fetch hoga
     useEffect(() => {
 
@@ -49,60 +52,60 @@ function ResumePreview() {
     };
 
     // PDF Download Function
-   // Professional PDF Download
-const downloadPDF = async () => {
+    // Professional PDF Download
+    const downloadPDF = async () => {
 
-    // Resume Div lena
-    const input = document.getElementById("resume");
+        // Resume Div lena
+        const input = document.getElementById("resume");
 
-    // High Quality Canvas
-    const canvas = await html2canvas(input, {
+        // High Quality Canvas
+        const canvas = await html2canvas(input, {
 
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#ffffff"
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff"
 
-    });
+        });
 
-    // Image Data
-    const imgData = canvas.toDataURL("image/png");
+        // Image Data
+        const imgData = canvas.toDataURL("image/png");
 
-    // PDF Create
-    const pdf = new jsPDF({
+        // PDF Create
+        const pdf = new jsPDF({
 
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4"
+            orientation: "portrait",
+            unit: "mm",
+            format: "a4"
 
-    });
+        });
 
-    // A4 Size
-    const pdfWidth = pdf.internal.pageSize.getWidth();
+        // A4 Size
+        const pdfWidth = pdf.internal.pageSize.getWidth();
 
-    const pdfHeight =
-        (canvas.height * pdfWidth) / canvas.width;
+        const pdfHeight =
+            (canvas.height * pdfWidth) / canvas.width;
 
-    // Image Add
-    pdf.addImage(
+        // Image Add
+        pdf.addImage(
 
-        imgData,
+            imgData,
 
-        "PNG",
+            "PNG",
 
-        0,
+            0,
 
-        0,
+            0,
 
-        pdfWidth,
+            pdfWidth,
 
-        pdfHeight
+            pdfHeight
 
-    );
+        );
 
-    // Download
-    pdf.save(`${resume.fullName || "Resume"}.pdf`);
+        // Download
+        pdf.save(`${resume.fullName || "Resume"}.pdf`);
 
-};
+    };
 
     // Loading
     if (!resume) {
@@ -115,6 +118,38 @@ const downloadPDF = async () => {
 
         <div>
 
+            <div className="template-selector">
+
+                <label>
+
+                    <b>Select Template :</b>
+
+                </label>
+
+                <select
+
+                    value={template}
+
+                    onChange={(e) => setTemplate(e.target.value)}
+
+                >
+
+                    <option value="modern">
+                        Modern
+                    </option>
+
+                    <option value="classic">
+                        Classic
+                    </option>
+
+                    <option value="minimal">
+                        Minimal
+                    </option>
+
+                </select>
+
+            </div>
+
             {/* Download Button */}
             <button
                 className="download-btn"
@@ -126,16 +161,16 @@ const downloadPDF = async () => {
             {/* Resume */}
             <div
                 id="resume"
-                className={`preview ${resume.template.toLowerCase()}`}
+                className={`preview ${(resume.template || "modern").toLowerCase()}`}
             >
 
                 {/* Header */}
 
                 <div className="resume-header">
 
-                    <h1>{resume.fullName}</h1>
+                    <h1>{resume.fullName || "No Name"}</h1>
 
-                    <h3>{resume.title}</h3>
+                    <h3>{resume.title || "Untitled Resume"}</h3>
 
                     <div className="contact-info">
 
@@ -189,30 +224,52 @@ const downloadPDF = async () => {
 
                 <div className="section">
 
-                    <h2>Skills</h2>
+    <h2>Skills</h2>
 
-                    <div className="badge-container">
+    <div className="badge-container">
 
-                        {
-                            resume.skills
-                                ?.split(",")
-                                .map((skill, index) => (
+        {
 
-                                    <span
-                                        key={index}
-                                        className="badge"
-                                    >
+            Array.isArray(resume.skills)
 
-                                        {skill.trim()}
+            ?
 
-                                    </span>
+            resume.skills.map((skill,index)=>(
 
-                                ))
-                        }
+                <span
+                    key={index}
+                    className="badge"
+                >
 
-                    </div>
+                    {skill}
 
-                </div>
+                </span>
+
+            ))
+
+            :
+
+            (resume.skills || "")
+            .split(",")
+            .filter(Boolean)
+            .map((skill,index)=>(
+
+                <span
+                    key={index}
+                    className="badge"
+                >
+
+                    {skill.trim()}
+
+                </span>
+
+            ))
+
+        }
+
+    </div>
+
+</div>
 
                 <hr />
 

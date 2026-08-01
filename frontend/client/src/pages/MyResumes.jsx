@@ -191,15 +191,13 @@ function MyResumes() {
 
     // Search Filter
 
-    const filteredResumes = resumes.filter((resume)=>
+const filteredResumes = resumes.filter((resume) =>
 
-
-        resume.fullName
+    (resume.fullName || "")
         .toLowerCase()
         .includes(search.toLowerCase())
 
-
-    );
+);
 
 
 

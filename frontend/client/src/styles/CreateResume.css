@@ -100,3 +100,81 @@
     background:#1d4ed8;
 
 }
+
+.template-selector{
+
+    margin-bottom:30px;
+
+}
+
+
+
+.template-cards{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+.template-card{
+
+    width:200px;
+
+    padding:20px;
+
+    border:2px solid #ddd;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    text-align:center;
+
+    transition:0.3s;
+
+}
+
+
+
+.template-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+
+
+.template-card.active{
+
+    border-color:#2563eb;
+
+    background:#eff6ff;
+
+}
+
+
+
+.template-preview{
+
+    height:120px;
+
+    background:white;
+
+    border:1px solid #ccc;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:15px;
+
+    font-weight:bold;
+
+}

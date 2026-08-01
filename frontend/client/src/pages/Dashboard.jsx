@@ -1,16 +1,21 @@
-// Dashboard CSS import
-import "../styles/Dashboard.css";
+import { useEffect, useState } from "react";
 
-// React Router
 import { useNavigate } from "react-router-dom";
 
-// Navbar Component
+import api from "../services/api";
+
+// Navbar
 import Navbar from "../components/Navbar";
 
-// Dashboard Card Component
+// Dashboard Card
 import DashboardCard from "../components/DashboardCard";
 
+// CSS
+import "../styles/Dashboard.css";
+
 function Dashboard() {
+
+    const [resumeCount,setResumeCount] = useState(0);
 
     // React Router ka Hook
     // Isse ek page se dusre page par ja sakte hain
@@ -34,6 +39,29 @@ function Dashboard() {
 
     };
 
+    const fetchResumeCount = async()=>{
+
+    try{
+
+        const response = await api.get("/resume");
+
+        setResumeCount(response.data.count);
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+};
+
+useEffect(()=>{
+
+    fetchResumeCount();
+
+},[]);
+
     return (
 
         <>
@@ -56,6 +84,18 @@ function Dashboard() {
                     <h2>
                         Welcome, {user?.name} 👋
                     </h2>
+
+                    <div className="resume-count-card">
+
+    <h3>
+        Total Resumes
+    </h3>
+
+    <h1>
+        {resumeCount}
+    </h1>
+
+</div>
 
                     {/* User Email */}
                     <p>

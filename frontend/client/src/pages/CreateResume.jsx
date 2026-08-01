@@ -16,6 +16,7 @@ import Skills from "../components/ResumeForm/Skills";
 import Projects from "../components/ResumeForm/Projects";
 import Certifications from "../components/ResumeForm/Certifications";
 import Languages from "../components/ResumeForm/Languages";
+import TemplateSelector from "../components/TemplateSelector";
 
 function CreateResume() {
 
@@ -193,6 +194,14 @@ function CreateResume() {
 
             {/* Resume Form */}
             <form onSubmit={handleSubmit}>
+
+                <TemplateSelector
+
+                    formData={formData}
+
+                    handleChange={handleChange}
+
+                />
 
                 <PersonalInfo
                     formData={formData}
