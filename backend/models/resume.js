@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 
 const resumeSchema = new mongoose.Schema(
+
 {
 
     userId: {
@@ -10,106 +11,118 @@ const resumeSchema = new mongoose.Schema(
 
         ref: "User",
 
-        required:true
+        required: true
 
     },
 
-     // Resume Title
+
+    // Resume Title
+
     title: {
 
-        type:String,
+        type: String,
 
-        default:"My Resume"
-
-    },
-
-
-    personalInfo: {
-
-        fullName:String,
-
-        email:String,
-
-        phone:String,
-
-        address:String,
-
-        linkedin:String,
-
-        github:String
+        default: "My Resume"
 
     },
 
 
-    education:[
+    // Personal Information
 
-        {
+    fullName: String,
 
-            degree:String,
+    email: String,
 
-            institution:String,
+    phone: String,
 
-            year:String
-
-        }
-
-    ],
+    address: String,
 
 
+    // Objective
 
-    experience:[
-
-        {
-
-            company:String,
-
-            role:String,
-
-            duration:String,
-
-            description:String
-
-        }
-
-    ],
+    objective: String,
 
 
+    // Education
 
-    skills:[String],
+    college: String,
 
+    degree: String,
 
+    branch: String,
 
-    projects:[
+    university: String,
 
-        {
+    passingYear: String,
 
-            title:String,
-
-            description:String,
-
-            technologies:String
-
-        }
-
-    ],
+    cgpa: String,
 
 
+    // Experience
 
-    createdAt:{
+    company: String,
 
-        type:Date,
+    jobTitle: String,
 
-        default:Date.now
+    jobLocation: String,
+
+    startDate: String,
+
+    endDate: String,
+
+    jobDescription: String,
+
+
+    // Skills
+
+    skills: [String],
+
+
+    // Projects
+
+    projectTitle: String,
+
+    technologies: String,
+
+    projectDescription: String,
+
+    githubLink: String,
+
+
+    // Extra Sections
+
+    certification: String,
+
+    languages: String,
+
+
+    // Template
+
+    template: {
+
+        type: String,
+
+        default: "Classic"
 
     }
 
 
+},
+
+{
+
+    timestamps: true
+
 }
+
 
 );
 
 
 module.exports = mongoose.model(
+
     "Resume",
+
     resumeSchema
+
 );

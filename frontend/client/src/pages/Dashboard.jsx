@@ -15,7 +15,8 @@ import "../styles/Dashboard.css";
 
 function Dashboard() {
 
-    const [resumeCount,setResumeCount] = useState(0);
+    const [resumeCount, setResumeCount] = useState(0);
+    const [recentResumes, setRecentResumes] = useState([]);
 
     // React Router ka Hook
     // Isse ek page se dusre page par ja sakte hain
@@ -39,28 +40,51 @@ function Dashboard() {
 
     };
 
-    const fetchResumeCount = async()=>{
+    const fetchDashboardData = async () => {
 
-    try{
+        try {
 
-        const response = await api.get("/resume");
+            console.log("Fetching Resume Data...");
 
-        setResumeCount(response.data.count);
+            const response = await api.get("/resume");
 
-    }
-    catch(error){
+            console.log("API RESPONSE:", response.data);
 
-        console.log(error);
+            const resumes = response.data.resumes || [];
 
-    }
+            setResumeCount(resumes.length);
 
-};
+            const sortedResumes = [...resumes]
+                .sort(
+                    (a, b) =>
+                        new Date(b.updatedAt || b.createdAt) -
+                        new Date(a.updatedAt || a.createdAt)
+                )
+                .slice(0, 5);
 
-useEffect(()=>{
+            setRecentResumes(sortedResumes);
 
-    fetchResumeCount();
+        }
+        catch (error) {
 
-},[]);
+            console.log("API ERROR:", error);
+
+        }
+
+    };
+
+    useEffect(() => {
+
+        fetchDashboardData();
+
+    }, []);
+
+    useEffect(() => {
+
+        console.log(recentResumes);
+
+    }, [recentResumes]);
+
 
     return (
 
@@ -87,15 +111,15 @@ useEffect(()=>{
 
                     <div className="resume-count-card">
 
-    <h3>
-        Total Resumes
-    </h3>
+                        <h3>
+                            Total Resumes
+                        </h3>
 
-    <h1>
-        {resumeCount}
-    </h1>
+                        <h1>
+                            {resumeCount}
+                        </h1>
 
-</div>
+                    </div>
 
                     {/* User Email */}
                     <p>
@@ -139,6 +163,80 @@ useEffect(()=>{
                             title="Logout"
                             onClick={handleLogout}
                         />
+
+                    </div>
+                    {/* Recent Resumes */}
+
+                    <div className="recent-resumes">
+
+                        <h2>
+                            Recent Resumes
+                        </h2>
+
+
+                        {
+                            recentResumes.length === 0 ? (
+
+                                <p>
+                                    No Resume Found
+                                </p>
+
+                            ) : (
+
+                                recentResumes.map((resume) => (
+
+                                    <div
+                                        className="recent-resume-card"
+                                        key={resume._id}
+                                    >
+
+                                        <div>
+
+                                            <h3>
+                                                {resume.title}
+                                            </h3>
+
+                                            <p>
+                                                Updated: {
+                                                    new Date(
+                                                        resume.updatedAt || resume.createdAt
+                                                    )
+                                                        .toLocaleDateString()
+                                                }
+                                            </p>
+
+                                        </div>
+
+
+                                        <div className="resume-actions">
+
+                                            <button
+                                                onClick={() =>
+                                                    navigate(`/resume/${resume._id}`)
+                                                }
+                                            >
+                                                Preview
+                                            </button>
+
+
+                                            <button
+                                                onClick={() =>
+                                                    navigate(`/edit-resume/${resume._id}`)
+                                                }
+                                            >
+                                                Edit
+                                            </button>
+
+                                        </div>
+
+
+                                    </div>
+
+                                ))
+
+                            )
+                        }
+
 
                     </div>
 

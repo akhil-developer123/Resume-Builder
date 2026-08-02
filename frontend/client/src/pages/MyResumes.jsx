@@ -31,10 +31,10 @@ function MyResumes() {
 
 
     // Fetch Resume
-    const fetchResumes = async()=>{
+    const fetchResumes = async () => {
 
 
-        try{
+        try {
 
 
             const response = await api.get("/resume");
@@ -44,13 +44,13 @@ function MyResumes() {
 
 
 
-        }catch(error){
+        } catch (error) {
 
 
             console.log(error.response?.data);
 
 
-        }finally{
+        } finally {
 
 
             setLoading(false);
@@ -66,7 +66,7 @@ function MyResumes() {
 
 
     // Delete Resume
-    const handleDelete = async(id)=>{
+    const handleDelete = async (id) => {
 
 
         const confirmDelete = window.confirm(
@@ -74,11 +74,11 @@ function MyResumes() {
         );
 
 
-        if(!confirmDelete) return;
+        if (!confirmDelete) return;
 
 
 
-        try{
+        try {
 
 
             await api.delete(`/resume/${id}`);
@@ -91,7 +91,7 @@ function MyResumes() {
 
 
 
-        }catch(error){
+        } catch (error) {
 
 
             console.log(error);
@@ -107,7 +107,7 @@ function MyResumes() {
 
 
     // Rename Resume
-    const handleRename = async(id)=>{
+    const handleRename = async (id) => {
 
 
         const newTitle = prompt(
@@ -115,17 +115,17 @@ function MyResumes() {
         );
 
 
-        if(!newTitle) return;
+        if (!newTitle) return;
 
 
 
-        try{
+        try {
 
 
             await api.put(
                 `/resume/rename/${id}`,
                 {
-                    title:newTitle
+                    title: newTitle
                 }
             );
 
@@ -137,7 +137,7 @@ function MyResumes() {
 
 
 
-        }catch(error){
+        } catch (error) {
 
 
             console.log(error);
@@ -154,10 +154,10 @@ function MyResumes() {
 
 
     // Duplicate Resume
-    const handleDuplicate = async(id)=>{
+    const handleDuplicate = async (id) => {
 
 
-        try{
+        try {
 
 
             await api.post(
@@ -174,7 +174,7 @@ function MyResumes() {
 
 
 
-        }catch(error){
+        } catch (error) {
 
 
             console.log(error);
@@ -191,33 +191,35 @@ function MyResumes() {
 
     // Search Filter
 
-const filteredResumes = resumes.filter((resume) =>
+    const filteredResumes = resumes.filter((resume) => {
 
-    (resume.fullName || "")
-        .toLowerCase()
-        .includes(search.toLowerCase())
+        return (
+            (resume.title || "")
+                .toLowerCase()
+                .includes(search.toLowerCase())
+        );
 
-);
-
-
-
-
+    });
 
 
-    useEffect(()=>{
+
+
+
+
+    useEffect(() => {
 
 
         fetchResumes();
 
 
-    },[]);
+    }, []);
 
 
 
 
 
 
-    return(
+    return (
 
 
         <div className="my-resumes-container">
@@ -237,7 +239,7 @@ const filteredResumes = resumes.filter((resume) =>
 
                 value={search}
 
-                onChange={(e)=>setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
 
                 className="search-input"
 
@@ -249,120 +251,136 @@ const filteredResumes = resumes.filter((resume) =>
             {
                 loading ?
 
-                (
+                    (
 
-                    <h2>
-                        Loading...
-                    </h2>
+                        <h2>
+                            Loading...
+                        </h2>
 
-                )
+                    )
 
-                :
+                    :
 
-                filteredResumes.length===0 ?
+                    filteredResumes.length === 0 ?
 
-                (
-
-                    <h2>
-                        No Resume Found
-                    </h2>
-
-                )
-
-                :
-
-                (
-
-                    filteredResumes.map((resume)=>(
-
-
-                        <div
-                            key={resume._id}
-                            className="resume-card"
-                        >
-
+                        (
 
                             <h2>
-                                {resume.title || resume.fullName}
+                                No Resume Found
                             </h2>
 
+                        )
 
-                            <p>
-                                {resume.email}
-                            </p>
+                        :
 
+                        (
 
-
-                            <button
-                                onClick={()=>handleRename(resume._id)}
-                            >
-                                Rename
-                            </button>
+                            filteredResumes.map((resume) => (
 
 
+                                <div
+                                    key={resume._id}
+                                    className="resume-card"
+                                >
 
 
-                            <button
-                                onClick={()=>handleDuplicate(resume._id)}
-                            >
-                                Duplicate
-                            </button>
+                                    <h2>
+                                        {resume.title || resume.fullName}
+                                    </h2>
+
+
+                                    <p>
+                                        {resume.personalInfo?.email || resume.email}
+                                    </p>
+
+                                    <p>
+
+                                        Last Updated :
+
+                                        {
+
+                                            new Date(
+
+                                                resume.updatedAt || resume.createdAt
+
+                                            ).toLocaleDateString()
+
+                                        }
+
+                                    </p>
 
 
 
-
-
-                            <button
-
-                                onClick={()=>navigate(
-                                    `/edit-resume/${resume._id}`
-                                )}
-
-                            >
-
-                                Edit
-
-                            </button>
-
-
-
-
-
-                            <button
-
-                                onClick={()=>navigate(
-                                    `/resume/${resume._id}`
-                                )}
-
-                            >
-
-                                Preview
-
-                            </button>
+                                    <button
+                                        onClick={() => handleRename(resume._id)}
+                                    >
+                                        Rename
+                                    </button>
 
 
 
 
-
-                            <button
-
-                                onClick={()=>handleDelete(resume._id)}
-
-                            >
-
-                                Delete
-
-                            </button>
+                                    <button
+                                        onClick={() => handleDuplicate(resume._id)}
+                                    >
+                                        Duplicate
+                                    </button>
 
 
 
-                        </div>
+
+
+                                    <button
+
+                                        onClick={() => navigate(
+                                            `/edit-resume/${resume._id}`
+                                        )}
+
+                                    >
+
+                                        Edit
+
+                                    </button>
 
 
 
-                    ))
 
-                )
+
+                                    <button
+
+                                        onClick={() => navigate(
+                                            `/resume/${resume._id}`
+                                        )}
+
+                                    >
+
+                                        Preview
+
+                                    </button>
+
+
+
+
+
+                                    <button
+
+                                        onClick={() => handleDelete(resume._id)}
+
+                                    >
+
+                                        Delete
+
+                                    </button>
+
+
+
+                                </div>
+
+
+
+                            ))
+
+                        )
 
             }
 
@@ -373,7 +391,7 @@ const filteredResumes = resumes.filter((resume) =>
 
                 className="back-btn"
 
-                onClick={()=>navigate("/dashboard")}
+                onClick={() => navigate("/dashboard")}
 
             >
 

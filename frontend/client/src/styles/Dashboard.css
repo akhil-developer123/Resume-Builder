@@ -129,3 +129,169 @@
     color:white;
 
 }
+
+/* ===========================
+   Resume Count Card
+=========================== */
+
+.resume-count-card{
+
+    margin:20px 0;
+
+    background:#2563eb;
+
+    color:white;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+.resume-count-card h3{
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:500;
+
+}
+
+.resume-count-card h1{
+
+    margin-top:10px;
+
+    font-size:42px;
+
+}
+
+
+/* ===========================
+   Recent Resume Section
+=========================== */
+
+.recent-resumes{
+
+    margin-top:35px;
+
+}
+
+.recent-resumes h2{
+
+    margin-bottom:18px;
+
+}
+
+
+/* Resume Card */
+
+.recent-resume-card{
+
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    transition:.3s;
+
+}
+
+
+.recent-resume-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.12);
+
+}
+
+
+/* Resume Title */
+
+.recent-resume-card h3{
+
+    margin:0;
+
+    color:#1f2937;
+
+}
+
+
+/* Date */
+
+.recent-resume-card p{
+
+    margin-top:8px;
+
+    margin-bottom:0;
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+
+/* Buttons */
+
+.resume-actions{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+.resume-actions button{
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:9px 15px;
+
+    border-radius:8px;
+
+    color:white;
+
+    font-weight:600;
+
+}
+
+
+.resume-actions button:first-child{
+
+    background:#2563eb;
+
+}
+
+
+.resume-actions button:last-child{
+
+    background:#10b981;
+
+}
+
+
+.resume-actions button:hover{
+
+    opacity:.9;
+
+}
