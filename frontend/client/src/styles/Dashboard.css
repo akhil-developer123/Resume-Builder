@@ -3,11 +3,7 @@
 
     min-height:100vh;
 
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
+    padding:40px 20px;
 
     background:#f4f7fc;
 
@@ -18,7 +14,7 @@
 
 .dashboard-box{
 
-    width:420px;
+    width:900px;
 
     background:white;
 
@@ -293,5 +289,33 @@
 .resume-actions button:hover{
 
     opacity:.9;
+
+}
+
+@media(max-width:768px){
+
+    .dashboard-box{
+
+        width:100%;
+
+    }
+
+
+    .recent-resume-card{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+
+    .resume-actions{
+
+        width:100%;
+
+    }
 
 }

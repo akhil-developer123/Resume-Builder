@@ -107,41 +107,39 @@ function CreateResume() {
 
     }, [id]);
 
-    // AI Suggestion
-    const improveWithAI = async () => {
+   // AI Suggestion
+const improveWithAI = async () => {
 
-        try {
+    try {
 
-            const response = await api.post(
+        const response = await api.post(
 
-                "/ai/improve",
+            "/ai/improve",
 
-                {
-                    objective: formData.objective
-                }
+            formData
 
-            );
+        );
 
-            // Objective Update
-            setFormData({
+        // AI Result Page par bhejna
+        navigate("/ai-result", {
 
-                ...formData,
+            state: {
 
-                objective: response.data.objective
+                result: response.data.result
 
-            });
+            }
 
-            alert("AI Suggestion Applied Successfully");
+        });
 
-        } catch (error) {
+    } catch (error) {
 
-            console.log(error.response?.data);
+        console.log(error.response?.data);
 
-            alert("AI Suggestion Failed");
+        alert("AI Suggestion Failed");
 
-        }
+    }
 
-    };
+};
 
     const handleSubmit = async (e) => {
 

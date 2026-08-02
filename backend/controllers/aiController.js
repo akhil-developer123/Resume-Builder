@@ -6,19 +6,19 @@ const improveResume = async (req, res) => {
     try {
 
         // Frontend se Data lena
-        const { objective } = req.body;
+        const resumeData = req.body;
 
         // Improved Summary
-        let improvedSummary =
-            "Highly motivated and detail-oriented Full Stack Developer with strong problem-solving skills, a passion for continuous learning, and hands-on experience in building responsive web applications using the MERN Stack.";
+        const improvedSummary = `Highly motivated ${
+            resumeData.fullName || "candidate"
+        } with strong skills in ${
+            resumeData.skills || "software development"
+        }. Passionate about continuous learning and contributing to organizational growth.`;
 
-        // Agar Objective diya hai
-        if (objective) {
-
-            improvedSummary =
-                "Highly motivated and detail-oriented individual with strong problem-solving abilities and a passion for continuous learning. Seeking an opportunity to contribute effectively while enhancing professional skills.";
-
-        }
+        // Skills Array banana
+        const improvedSkills = resumeData.skills
+            ? resumeData.skills.split(",").map(skill => skill.trim())
+            : [];
 
         // Response
         res.status(200).json({
@@ -29,41 +29,55 @@ const improveResume = async (req, res) => {
 
             result: {
 
-                improvedSummary,
+    improvedSummary,
 
-                atsScore: 84,
+    atsScore: 84,
 
-                skills: [
+    strengths: [
 
-                    "JavaScript",
+        "Strong communication skills",
 
-                    "React",
+        "Knowledge of MERN Stack",
 
-                    "Node.js",
+        "Problem-solving ability"
 
-                    "Express.js",
+    ],
 
-                    "MongoDB",
+    weaknesses: [
 
-                    "Git",
+        "Add more real-world projects",
 
-                    "REST API"
+        "Include certifications",
 
-                ],
+        "Mention measurable achievements"
 
-                missingKeywords: [
+    ],
 
-                    "Leadership",
+    skills: improvedSkills,
 
-                    "Team Collaboration",
+    suggestions: [
 
-                    "Communication",
+        "Use action verbs in experience",
 
-                    "Problem Solving"
+        "Quantify achievements with numbers",
 
-                ]
+        "Keep resume limited to one page"
 
-            }
+    ],
+
+    missingKeywords: [
+
+        "Leadership",
+
+        "Team Collaboration",
+
+        "Communication",
+
+        "Problem Solving"
+
+    ]
+
+}
 
         });
 

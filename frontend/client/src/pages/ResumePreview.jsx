@@ -25,7 +25,7 @@ function ResumePreview() {
     const [resume, setResume] = useState(null);
 
     // Selected Template
-    const [template, setTemplate] = useState("modern");
+   const [template, setTemplate] = useState("");
 
     // Page Load hote hi Resume Fetch hoga
     useEffect(() => {
@@ -42,6 +42,10 @@ function ResumePreview() {
             const response = await api.get(`/resume/${id}`);
 
             setResume(response.data.resume);
+
+            setTemplate(
+    response.data.resume.template?.toLowerCase() || "classic"
+);
 
         }
 
@@ -323,7 +327,7 @@ function ResumePreview() {
             {/* Resume */}
             <div
                 id="resume"
-                className={`preview ${(resume.template || "modern").toLowerCase()}`}
+                className={`preview ${template}`}
             >
 
                 {/* Header */}

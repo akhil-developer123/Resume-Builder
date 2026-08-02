@@ -71,24 +71,12 @@ function ImproveResume() {
             alert(response.data.message);
 
             // AI Improve API Call
-            const aiResponse = await api.post(
-
-                "/ai/improve",
-
-                {
-
-                    objective: response.data.text
-
-                }
-
-            );
-
             // AI Result Page
             navigate("/ai-result", {
 
                 state: {
 
-                    result: aiResponse.data.result
+                    result: response.data.result
 
                 }
 
