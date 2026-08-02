@@ -13,6 +13,8 @@ import "../styles/ResumePreview.css";
 // PDF Libraries
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { Document, Packer, Paragraph, TextRun } from "docx";
+import { saveAs } from "file-saver";
 
 function ResumePreview() {
 
@@ -106,6 +108,159 @@ function ResumePreview() {
         pdf.save(`${resume.fullName || "Resume"}.pdf`);
 
     };
+    // DOCX Download Function
+    const downloadDOCX = async () => {
+
+        const doc = new Document({
+
+            sections: [
+
+                {
+
+                    children: [
+
+                        new Paragraph({
+
+                            children: [
+
+                                new TextRun({
+
+                                    text: resume.title || "Resume",
+
+                                    bold: true,
+
+                                    size: 32
+
+                                })
+
+                            ]
+
+                        }),
+
+
+                        new Paragraph(
+                            `Name: ${resume.fullName || ""}`
+                        ),
+
+
+                        new Paragraph(
+                            `Email: ${resume.email || ""}`
+                        ),
+
+
+                        new Paragraph(
+                            `Phone: ${resume.phone || ""}`
+                        ),
+
+
+                        new Paragraph(
+                            `Address: ${resume.address || ""}`
+                        ),
+
+
+                        new Paragraph(
+                            ``
+                        ),
+
+
+                        new Paragraph({
+
+                            children: [
+
+                                new TextRun({
+
+                                    text: "Career Objective",
+
+                                    bold: true
+
+                                })
+
+                            ]
+
+                        }),
+
+
+                        new Paragraph(
+                            resume.objective || ""
+                        ),
+
+
+                        new Paragraph({
+
+                            children: [
+
+                                new TextRun({
+
+                                    text: "Education",
+
+                                    bold: true
+
+                                })
+
+                            ]
+
+                        }),
+
+
+                        new Paragraph(
+                            `College: ${resume.college || ""}`
+                        ),
+
+
+                        new Paragraph(
+                            `Degree: ${resume.degree || ""}`
+                        ),
+
+
+                        new Paragraph(
+                            `Branch: ${resume.branch || ""}`
+                        ),
+
+
+                        new Paragraph({
+
+                            children: [
+
+                                new TextRun({
+
+                                    text: "Skills",
+
+                                    bold: true
+
+                                })
+
+                            ]
+
+                        }),
+
+
+                        new Paragraph(
+                            Array.isArray(resume.skills)
+                                ? resume.skills.join(", ")
+                                : resume.skills || ""
+                        )
+
+                    ]
+
+                }
+
+            ]
+
+        });
+
+
+        const blob = await Packer.toBlob(doc);
+
+
+        saveAs(
+
+            blob,
+
+            `${resume.fullName || "Resume"}.docx`
+
+        );
+
+    };
 
     // Loading
     if (!resume) {
@@ -156,6 +311,13 @@ function ResumePreview() {
                 onClick={downloadPDF}
             >
                 Download PDF
+            </button>
+
+            <button
+                className="download-btn"
+                onClick={downloadDOCX}
+            >
+                Download DOCX
             </button>
 
             {/* Resume */}
@@ -224,52 +386,52 @@ function ResumePreview() {
 
                 <div className="section">
 
-    <h2>Skills</h2>
+                    <h2>Skills</h2>
 
-    <div className="badge-container">
+                    <div className="badge-container">
 
-        {
+                        {
 
-            Array.isArray(resume.skills)
+                            Array.isArray(resume.skills)
 
-            ?
+                                ?
 
-            resume.skills.map((skill,index)=>(
+                                resume.skills.map((skill, index) => (
 
-                <span
-                    key={index}
-                    className="badge"
-                >
+                                    <span
+                                        key={index}
+                                        className="badge"
+                                    >
 
-                    {skill}
+                                        {skill}
 
-                </span>
+                                    </span>
 
-            ))
+                                ))
 
-            :
+                                :
 
-            (resume.skills || "")
-            .split(",")
-            .filter(Boolean)
-            .map((skill,index)=>(
+                                (resume.skills || "")
+                                    .split(",")
+                                    .filter(Boolean)
+                                    .map((skill, index) => (
 
-                <span
-                    key={index}
-                    className="badge"
-                >
+                                        <span
+                                            key={index}
+                                            className="badge"
+                                        >
 
-                    {skill.trim()}
+                                            {skill.trim()}
 
-                </span>
+                                        </span>
 
-            ))
+                                    ))
 
-        }
+                        }
 
-    </div>
+                    </div>
 
-</div>
+                </div>
 
                 <hr />
 
