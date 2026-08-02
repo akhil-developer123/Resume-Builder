@@ -285,7 +285,7 @@ function MyResumes() {
 
 
                                     <h2>
-                                        {resume.title || resume.fullName}
+                                        📄 {resume.title || resume.fullName || "Untitled Resume"}
                                     </h2>
 
 
@@ -305,6 +305,25 @@ function MyResumes() {
 
                                             ).toLocaleDateString()
 
+                                        }
+
+                                    </p>
+
+                                    <p>
+                                        Template :
+
+                                        {resume.template || "Classic"}
+
+                                    </p>
+
+
+                                    <p>
+                                        Created :
+
+                                        {
+                                            new Date(
+                                                resume.createdAt
+                                            ).toLocaleDateString()
                                         }
 
                                     </p>

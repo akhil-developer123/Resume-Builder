@@ -396,15 +396,62 @@ const duplicateResume = async(req,res)=>{
 
             title: resume.title + " Copy",
 
-            personalInfo: resume.personalInfo,
+            fullName: resume.fullName,
 
-            education: resume.education,
+            email: resume.email,
 
-            experience: resume.experience,
+            phone: resume.phone,
+
+            address: resume.address,
+
+            objective: resume.objective,
+
+
+            college: resume.college,
+
+            degree: resume.degree,
+
+            branch: resume.branch,
+
+            university: resume.university,
+
+            passingYear: resume.passingYear,
+
+            cgpa: resume.cgpa,
+
+
+            company: resume.company,
+
+            jobTitle: resume.jobTitle,
+
+            jobLocation: resume.jobLocation,
+
+            startDate: resume.startDate,
+
+            endDate: resume.endDate,
+
+            jobDescription: resume.jobDescription,
+
 
             skills: resume.skills,
 
-            projects: resume.projects
+
+            projectTitle: resume.projectTitle,
+
+            technologies: resume.technologies,
+
+            projectDescription: resume.projectDescription,
+
+            githubLink: resume.githubLink,
+
+
+            certification: resume.certification,
+
+            languages: resume.languages,
+
+
+            template: resume.template
+
 
         });
 
@@ -422,7 +469,9 @@ const duplicateResume = async(req,res)=>{
 
 
 
-    }catch(error){
+    }
+
+    catch(error){
 
 
         res.status(500).json({
@@ -438,12 +487,6 @@ const duplicateResume = async(req,res)=>{
 
 
 };
-
-
-
-
-
-
 
 module.exports = {
 
