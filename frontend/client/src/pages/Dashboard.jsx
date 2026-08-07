@@ -100,14 +100,19 @@ function Dashboard() {
                 <div className="dashboard-box">
 
                     {/* Heading */}
-                    <h1>
-                        Resume Builder
-                    </h1>
+                    <div className="dashboard-header">
 
-                    {/* Welcome Message */}
-                    <h2>
-                        Welcome, {user?.name} 👋
-                    </h2>
+                        <h1>
+                            📄 Resume Builder
+                        </h1>
+
+                        <h2>
+                            Welcome, {user?.name}
+                        </h2>
+
+                       
+
+                    </div>
 
                     <div className="resume-count-card">
 

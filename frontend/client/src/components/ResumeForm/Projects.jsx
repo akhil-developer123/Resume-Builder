@@ -6,40 +6,47 @@ function Projects({ formData, handleChange }) {
 
         <div className="form-section">
 
-            {/* Section Heading */}
-            <h2>Projects</h2>
+            <h2>🚀 Projects</h2>
 
-            {/* Project Title */}
-            <div className="form-group">
+            <p className="section-subtitle">
+                Showcase your best projects and technical skills.
+            </p>
 
-                <label>Project Title</label>
+            <div className="form-grid">
 
-                <input
-                    type="text"
-                    name="projectTitle"
-                    placeholder="Enter Project Title"
-                    value={formData.projectTitle}
-                    onChange={handleChange}
-                />
+                {/* Project Title */}
+                <div className="form-group">
+
+                    <label>Project Title</label>
+
+                    <input
+                        type="text"
+                        name="projectTitle"
+                        placeholder="AI Resume Builder"
+                        value={formData.projectTitle}
+                        onChange={handleChange}
+                    />
+
+                </div>
+
+                {/* Technologies */}
+                <div className="form-group">
+
+                    <label>Technologies Used</label>
+
+                    <input
+                        type="text"
+                        name="technologies"
+                        placeholder="React, Node.js, Express, MongoDB"
+                        value={formData.technologies}
+                        onChange={handleChange}
+                    />
+
+                </div>
 
             </div>
 
-            {/* Technologies */}
-            <div className="form-group">
-
-                <label>Technologies Used</label>
-
-                <input
-                    type="text"
-                    name="technologies"
-                    placeholder="React, Node.js, MongoDB..."
-                    value={formData.technologies}
-                    onChange={handleChange}
-                />
-
-            </div>
-
-            {/* Description */}
+            {/* Project Description */}
             <div className="form-group">
 
                 <label>Project Description</label>
@@ -47,7 +54,7 @@ function Projects({ formData, handleChange }) {
                 <textarea
                     name="projectDescription"
                     rows="5"
-                    placeholder="Describe your project..."
+                    placeholder="Built a full-stack AI Resume Builder using the MERN Stack with authentication, PDF export, AI suggestions and ATS score analysis."
                     value={formData.projectDescription}
                     onChange={handleChange}
                 />
@@ -57,12 +64,12 @@ function Projects({ formData, handleChange }) {
             {/* GitHub Link */}
             <div className="form-group">
 
-                <label>GitHub Link</label>
+                <label>GitHub Repository</label>
 
                 <input
                     type="url"
                     name="githubLink"
-                    placeholder="https://github.com/username/project"
+                    placeholder="https://github.com/yourusername/project-name"
                     value={formData.githubLink}
                     onChange={handleChange}
                 />

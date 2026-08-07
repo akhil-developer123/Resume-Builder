@@ -7,107 +7,111 @@ function PersonalInfo({ formData, handleChange }) {
         <div className="form-section">
 
             {/* Section Heading */}
-            <h2>Personal Information</h2>
+            <h2>👤 Personal Information</h2>
 
-            {/* Resume Title */}
-            <div className="form-group">
+            <div className="form-grid">
 
-                <label>Resume Title</label>
+                {/* Resume Title */}
+                <div className="form-group">
 
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Example: Frontend Developer Resume"
-                    value={formData.title}
-                    onChange={handleChange}
-                />
+                    <label>Resume Title</label>
 
-            </div>
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="Example: Frontend Developer Resume"
+                        value={formData.title}
+                        onChange={handleChange}
+                    />
 
-            {/* Resume Template */}
-            <div className="form-group">
+                </div>
 
-                <label>Select Template</label>
+                {/* Resume Template */}
+                <div className="form-group">
 
-                <select
-                    name="template"
-                    value={formData.template}
-                    onChange={handleChange}
-                >
+                    <label>Select Template</label>
 
-                    <option value="Classic">
-                        Classic
-                    </option>
+                    <select
+                        name="template"
+                        value={formData.template}
+                        onChange={handleChange}
+                    >
 
-                    <option value="Professional">
-                        Professional
-                    </option>
+                        <option value="Classic">
+                            Classic
+                        </option>
 
-                    <option value="Modern">
-                        Modern
-                    </option>
+                        <option value="Professional">
+                            Professional
+                        </option>
 
-                </select>
+                        <option value="Modern">
+                            Modern
+                        </option>
 
-            </div>
+                    </select>
 
-            {/* Full Name */}
-            <div className="form-group">
+                </div>
 
-                <label>Full Name</label>
+                {/* Full Name */}
+                <div className="form-group">
 
-                <input
-                    type="text"
-                    name="fullName"
-                    placeholder="Enter Full Name"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                />
+                    <label>Full Name</label>
 
-            </div>
+                    <input
+                        type="text"
+                        name="fullName"
+                        placeholder="Enter Full Name"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                    />
 
-            {/* Email */}
-            <div className="form-group">
+                </div>
 
-                <label>Email</label>
+                {/* Email */}
+                <div className="form-group">
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
+                    <label>Email</label>
 
-            </div>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
 
-            {/* Phone */}
-            <div className="form-group">
+                </div>
 
-                <label>Phone Number</label>
+                {/* Phone */}
+                <div className="form-group">
 
-                <input
-                    type="text"
-                    name="phone"
-                    placeholder="Enter Phone Number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                />
+                    <label>Phone Number</label>
 
-            </div>
+                    <input
+                        type="text"
+                        name="phone"
+                        placeholder="Enter Phone Number"
+                        value={formData.phone}
+                        onChange={handleChange}
+                    />
 
-            {/* Address */}
-            <div className="form-group">
+                </div>
 
-                <label>Address</label>
+                {/* Address */}
+                <div className="form-group">
 
-                <input
-                    type="text"
-                    name="address"
-                    placeholder="Enter Address"
-                    value={formData.address}
-                    onChange={handleChange}
-                />
+                    <label>Address</label>
+
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="Enter Address"
+                        value={formData.address}
+                        onChange={handleChange}
+                    />
+
+                </div>
 
             </div>
 

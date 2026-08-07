@@ -6,83 +6,90 @@ function Experience({ formData, handleChange }) {
 
         <div className="form-section">
 
-            {/* Section Heading */}
-            <h2>Experience</h2>
+            <h2>💼 Work Experience</h2>
 
-            {/* Company Name */}
-            <div className="form-group">
+            <p className="section-subtitle">
+                Add your internship or job experience.
+            </p>
 
-                <label>Company Name</label>
+            <div className="form-grid">
 
-                <input
-                    type="text"
-                    name="company"
-                    placeholder="Enter Company Name"
-                    value={formData.company}
-                    onChange={handleChange}
-                />
+                {/* Company */}
+                <div className="form-group">
+
+                    <label>Company Name</label>
+
+                    <input
+                        type="text"
+                        name="company"
+                        placeholder="Google Pvt. Ltd."
+                        value={formData.company}
+                        onChange={handleChange}
+                    />
+
+                </div>
+
+                {/* Job Title */}
+                <div className="form-group">
+
+                    <label>Job Title</label>
+
+                    <input
+                        type="text"
+                        name="jobTitle"
+                        placeholder="Frontend Developer Intern"
+                        value={formData.jobTitle}
+                        onChange={handleChange}
+                    />
+
+                </div>
+
+                {/* Location */}
+                <div className="form-group">
+
+                    <label>Location</label>
+
+                    <input
+                        type="text"
+                        name="jobLocation"
+                        placeholder="Indore, MP"
+                        value={formData.jobLocation}
+                        onChange={handleChange}
+                    />
+
+                </div>
+
+                {/* Start Date */}
+                <div className="form-group">
+
+                    <label>Start Date</label>
+
+                    <input
+                        type="date"
+                        name="startDate"
+                        value={formData.startDate}
+                        onChange={handleChange}
+                    />
+
+                </div>
+
+                {/* End Date */}
+                <div className="form-group">
+
+                    <label>End Date</label>
+
+                    <input
+                        type="date"
+                        name="endDate"
+                        value={formData.endDate}
+                        onChange={handleChange}
+                    />
+
+                </div>
 
             </div>
 
-            {/* Job Title */}
-            <div className="form-group">
-
-                <label>Job Title</label>
-
-                <input
-                    type="text"
-                    name="jobTitle"
-                    placeholder="Enter Job Title"
-                    value={formData.jobTitle}
-                    onChange={handleChange}
-                />
-
-            </div>
-
-            {/* Location */}
-            <div className="form-group">
-
-                <label>Location</label>
-
-                <input
-                    type="text"
-                    name="jobLocation"
-                    placeholder="Enter Job Location"
-                    value={formData.jobLocation}
-                    onChange={handleChange}
-                />
-
-            </div>
-
-            {/* Start Date */}
-            <div className="form-group">
-
-                <label>Start Date</label>
-
-                <input
-                    type="date"
-                    name="startDate"
-                    value={formData.startDate}
-                    onChange={handleChange}
-                />
-
-            </div>
-
-            {/* End Date */}
-            <div className="form-group">
-
-                <label>End Date</label>
-
-                <input
-                    type="date"
-                    name="endDate"
-                    value={formData.endDate}
-                    onChange={handleChange}
-                />
-
-            </div>
-
-            {/* Job Description */}
+            {/* Description */}
             <div className="form-group">
 
                 <label>Job Description</label>
@@ -90,7 +97,7 @@ function Experience({ formData, handleChange }) {
                 <textarea
                     name="jobDescription"
                     rows="5"
-                    placeholder="Describe your work..."
+                    placeholder="• Developed responsive web applications using React.js&#10;• Collaborated with backend developers&#10;• Fixed bugs and improved UI performance"
                     value={formData.jobDescription}
                     onChange={handleChange}
                 />

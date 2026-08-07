@@ -6,10 +6,12 @@ function Skills({ formData, handleChange }) {
 
         <div className="form-section">
 
-            {/* Section Heading */}
-            <h2>Skills</h2>
+            <h2>🛠 Skills</h2>
 
-            {/* Technical Skills */}
+            <p className="section-subtitle">
+                Enter your technical and professional skills separated by commas.
+            </p>
+
             <div className="form-group">
 
                 <label>Technical Skills</label>
@@ -17,10 +19,14 @@ function Skills({ formData, handleChange }) {
                 <textarea
                     name="skills"
                     rows="5"
-                    placeholder="HTML, CSS, JavaScript, React, Node.js, Express.js, MongoDB"
+                    placeholder="HTML, CSS, JavaScript, React.js, Node.js, Express.js, MongoDB, Git, GitHub, REST API"
                     value={formData.skills}
                     onChange={handleChange}
                 />
+
+                <small className="input-hint">
+                    Example: HTML, CSS, JavaScript, React.js, Node.js, MongoDB
+                </small>
 
             </div>
 

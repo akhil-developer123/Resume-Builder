@@ -1,121 +1,92 @@
 function TemplateSelector({ formData, handleChange }) {
 
-
     const templates = [
-
         {
-            name:"Modern",
-            value:"Modern",
-            description:"Professional Blue Style"
+            name: "Modern",
+            value: "Modern",
+            description: "Professional Blue Style"
         },
-
-
         {
-            name:"Classic",
-            value:"Classic",
-            description:"Traditional Resume Style"
+            name: "Classic",
+            value: "Classic",
+            description: "Traditional Resume Style"
         },
-
-
         {
-            name:"Minimal",
-            value:"Minimal",
-            description:"Simple Clean Design"
+            name: "Minimal",
+            value: "Minimal",
+            description: "Simple Clean Design"
         }
-
     ];
-
-
 
     return (
 
         <div className="template-selector">
 
-
             <h2>
                 Choose Resume Template
             </h2>
 
-
-
             <div className="template-cards">
 
+                {templates.map((template) => (
 
-                {
-                    templates.map((template)=> (
+                    <div
+                        key={template.value}
 
+                        className={
+                            formData.template === template.value
+                                ? "template-card active"
+                                : "template-card"
+                        }
 
-                        <div
+                        onClick={() =>
+                            handleChange({
+                                target: {
+                                    name: "template",
+                                    value: template.value
+                                }
+                            })
+                        }
+                    >
 
-                            key={template.value}
+                        <div className="template-preview">
 
-                            className={
-                                formData.template === template.value
-                                ?
-                                "template-card active"
-                                :
-                                "template-card"
-                            }
+                            <div className="mini-resume">
 
-                            onClick={()=>
+                                <div className="mini-line title-line"></div>
 
+                                <div className="mini-line"></div>
 
-                                handleChange({
+                                <div className="mini-line short-line"></div>
 
-                                    target:{
+                                <div className="mini-section"></div>
 
-                                        name:"template",
+                                <div className="mini-line"></div>
 
-                                        value:template.value
-
-                                    }
-
-                                })
-
-
-                            }
-
-                        >
-
-
-                            <div className="template-preview">
-
-                                Resume
+                                <div className="mini-line short-line"></div>
 
                             </div>
 
-
-
-                            <h3>
-
-                                {template.name}
-
-                            </h3>
-
-
-
-                            <p>
-
-                                {template.description}
-
-                            </p>
-
-
                         </div>
 
+                        <h3>
+                            {template.name}
+                        </h3>
 
-                    ))
-                }
+                        <p>
+                            {template.description}
+                        </p>
 
+                    </div>
+
+                ))}
 
             </div>
-
 
         </div>
 
     );
 
 }
-
 
 export default TemplateSelector;

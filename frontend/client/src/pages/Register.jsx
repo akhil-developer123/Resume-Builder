@@ -94,11 +94,25 @@ function Register() {
       <div className="register-box">
 
 
-        <h1>Register</h1>
+        <div className="register-header">
 
+          <div className="logo-circle">
+            📄
+          </div>
 
-        <p>Create Your Account</p>
+          <h1>
+            Resume Builder
+          </h1>
 
+          <h2>
+            Create Account
+          </h2>
+
+          <p>
+            Start building your professional resume today.
+          </p>
+
+        </div>
 
         <form onSubmit={handleSubmit}>
 

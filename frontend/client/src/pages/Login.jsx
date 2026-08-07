@@ -47,20 +47,20 @@ function Login() {
       );
 
       localStorage.setItem(
-  "user",
-  JSON.stringify(response.data.user)
-);
+        "user",
+        JSON.stringify(response.data.user)
+      );
 
 
-console.log(
-  "Token Saved:",
-  localStorage.getItem("token")
-);
+      console.log(
+        "Token Saved:",
+        localStorage.getItem("token")
+      );
 
-console.log(
-  "User Saved:",
-  localStorage.getItem("user")
-);
+      console.log(
+        "User Saved:",
+        localStorage.getItem("user")
+      );
 
 
 
@@ -84,7 +84,7 @@ console.log(
 
     }
 
-    catch(error){
+    catch (error) {
 
       console.log(error.response);
 
@@ -105,9 +105,21 @@ console.log(
       <div className="login-box">
 
 
-        <h1>Login</h1>
+        <div className="login-header">
 
-        <p>Welcome Back</p>
+          <div className="logo-circle">
+            📄
+          </div>
+
+          <h1>Resume Builder</h1>
+
+          <h2>Welcome Back</h2>
+
+          <p>
+            Login to continue building your professional resume.
+          </p>
+
+        </div>
 
 
         <form onSubmit={handleSubmit}>
@@ -125,7 +137,7 @@ console.log(
 
               value={email}
 
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
 
             />
 
@@ -147,7 +159,7 @@ console.log(
 
               value={password}
 
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
 
             />
 
@@ -182,17 +194,13 @@ console.log(
 
 
         <p className="register-text">
-
           Don't have an account?
-
-
-          <a href="/register">
-
+          <span
+            className="register-link"
+            onClick={() => navigate("/register")}
+          >
             Register
-
-          </a>
-
-
+          </span>
         </p>
 
 
