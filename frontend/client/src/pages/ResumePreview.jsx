@@ -1,4 +1,3 @@
-// React Hooks
 import { useEffect, useState } from "react";
 
 // React Router
@@ -25,16 +24,15 @@ function ResumePreview() {
     const [resume, setResume] = useState(null);
 
     // Selected Template
-   const [template, setTemplate] = useState("");
+    const [template, setTemplate] = useState("");
 
-    // Page Load hote hi Resume Fetch hoga
+    // Resume Fetch
     useEffect(() => {
 
         fetchResume();
 
-    }, []);
+    }, [id]);
 
-    // Resume Fetch Function
     const fetchResume = async () => {
 
         try {
@@ -44,12 +42,10 @@ function ResumePreview() {
             setResume(response.data.resume);
 
             setTemplate(
-    response.data.resume.template?.toLowerCase() || "classic"
-);
+                response.data.resume.template?.toLowerCase() || "classic"
+            );
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.log(error.response?.data);
 
@@ -57,469 +53,731 @@ function ResumePreview() {
 
     };
 
-    // PDF Download Function
-    // Professional PDF Download
+
+    // PDF Download
     const downloadPDF = async () => {
 
-        // Resume Div lena
-        const input = document.getElementById("resume");
+        try {
 
-        // High Quality Canvas
-        const canvas = await html2canvas(input, {
+            const input = document.getElementById("resume");
 
-            scale: 2,
-            useCORS: true,
-            backgroundColor: "#ffffff"
+            const canvas = await html2canvas(input, {
 
-        });
+                scale: 2,
+                useCORS: true,
+                backgroundColor: "#ffffff",
+                windowWidth: input.scrollWidth,
 
-        // Image Data
-        const imgData = canvas.toDataURL("image/png");
+                windowHeight: input.scrollHeight
 
-        // PDF Create
-        const pdf = new jsPDF({
 
-            orientation: "portrait",
-            unit: "mm",
-            format: "a4"
+            });
 
-        });
+            const imgData = canvas.toDataURL("image/png");
 
-        // A4 Size
-        const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdf = new jsPDF({
 
-        const pdfHeight =
-            (canvas.height * pdfWidth) / canvas.width;
+                orientation: "portrait",
+                unit: "mm",
+                format: "a4"
 
-        // Image Add
-        pdf.addImage(
+            });
 
-            imgData,
+            const pdfWidth = pdf.internal.pageSize.getWidth();
 
-            "PNG",
+            const pdfHeight =
+                (canvas.height * pdfWidth) / canvas.width;
 
-            0,
+            pdf.addImage(
 
-            0,
+                imgData,
+                "PNG",
+                0,
+                0,
+                pdfWidth,
+                pdfHeight
 
-            pdfWidth,
+            );
 
-            pdfHeight
+            pdf.save(
+                `${resume.fullName || "Resume"}.pdf`
+            );
 
-        );
+        } catch (error) {
 
-        // Download
-        pdf.save(`${resume.fullName || "Resume"}.pdf`);
+            console.log("PDF Download Error:", error);
+
+        }
 
     };
-    // DOCX Download Function
+
+
+    // DOCX Download
     const downloadDOCX = async () => {
 
-        const doc = new Document({
+        try {
 
-            sections: [
+            const doc = new Document({
 
-                {
+                sections: [
 
-                    children: [
+                    {
 
-                        new Paragraph({
+                        children: [
 
-                            children: [
+                            new Paragraph({
 
-                                new TextRun({
+                                children: [
 
-                                    text: resume.title || "Resume",
+                                    new TextRun({
 
-                                    bold: true,
+                                        text: resume.title || "Resume",
+                                        bold: true,
+                                        size: 32
 
-                                    size: 32
+                                    })
 
-                                })
+                                ]
 
-                            ]
+                            }),
 
-                        }),
+                            new Paragraph(
+                                `Name: ${resume.fullName || ""}`
+                            ),
 
+                            new Paragraph(
+                                `Email: ${resume.email || ""}`
+                            ),
 
-                        new Paragraph(
-                            `Name: ${resume.fullName || ""}`
-                        ),
+                            new Paragraph(
+                                `Phone: ${resume.phone || ""}`
+                            ),
 
+                            new Paragraph(
+                                `Address: ${resume.address || ""}`
+                            ),
 
-                        new Paragraph(
-                            `Email: ${resume.email || ""}`
-                        ),
+                            new Paragraph(""),
 
+                            new Paragraph({
 
-                        new Paragraph(
-                            `Phone: ${resume.phone || ""}`
-                        ),
+                                children: [
 
+                                    new TextRun({
 
-                        new Paragraph(
-                            `Address: ${resume.address || ""}`
-                        ),
+                                        text: "Career Objective",
+                                        bold: true
 
+                                    })
 
-                        new Paragraph(
-                            ``
-                        ),
+                                ]
 
+                            }),
 
-                        new Paragraph({
+                            new Paragraph(
+                                resume.objective || ""
+                            ),
 
-                            children: [
+                            new Paragraph({
 
-                                new TextRun({
+                                children: [
 
-                                    text: "Career Objective",
+                                    new TextRun({
 
-                                    bold: true
+                                        text: "Education",
+                                        bold: true
 
-                                })
+                                    })
 
-                            ]
+                                ]
 
-                        }),
+                            }),
 
+                            new Paragraph(
+                                `College: ${resume.college || ""}`
+                            ),
 
-                        new Paragraph(
-                            resume.objective || ""
-                        ),
+                            new Paragraph(
+                                `Degree: ${resume.degree || ""}`
+                            ),
 
+                            new Paragraph(
+                                `Branch: ${resume.branch || ""}`
+                            ),
 
-                        new Paragraph({
+                            new Paragraph(
+                                `University: ${resume.university || ""}`
+                            ),
 
-                            children: [
+                            new Paragraph(
+                                `Passing Year: ${resume.passingYear || ""}`
+                            ),
 
-                                new TextRun({
+                            new Paragraph(
+                                `CGPA: ${resume.cgpa || ""}`
+                            ),
 
-                                    text: "Education",
+                            new Paragraph({
 
-                                    bold: true
+                                children: [
 
-                                })
+                                    new TextRun({
 
-                            ]
+                                        text: "Experience",
+                                        bold: true
 
-                        }),
+                                    })
 
+                                ]
 
-                        new Paragraph(
-                            `College: ${resume.college || ""}`
-                        ),
+                            }),
 
+                            new Paragraph(
+                                `Company: ${resume.company || ""}`
+                            ),
 
-                        new Paragraph(
-                            `Degree: ${resume.degree || ""}`
-                        ),
+                            new Paragraph(
+                                `Job Title: ${resume.jobTitle || ""}`
+                            ),
 
+                            new Paragraph(
+                                `Location: ${resume.jobLocation || ""}`
+                            ),
 
-                        new Paragraph(
-                            `Branch: ${resume.branch || ""}`
-                        ),
+                            new Paragraph(
+                                `Duration: ${resume.startDate || ""} - ${resume.endDate || ""}`
+                            ),
 
+                            new Paragraph(
+                                resume.jobDescription || ""
+                            ),
 
-                        new Paragraph({
+                            new Paragraph({
 
-                            children: [
+                                children: [
 
-                                new TextRun({
+                                    new TextRun({
 
-                                    text: "Skills",
+                                        text: "Skills",
+                                        bold: true
 
-                                    bold: true
+                                    })
 
-                                })
+                                ]
 
-                            ]
+                            }),
 
-                        }),
+                            new Paragraph(
 
+                                Array.isArray(resume.skills)
+                                    ? resume.skills.join(", ")
+                                    : resume.skills || ""
 
-                        new Paragraph(
-                            Array.isArray(resume.skills)
-                                ? resume.skills.join(", ")
-                                : resume.skills || ""
-                        )
+                            ),
 
-                    ]
+                            new Paragraph({
 
-                }
+                                children: [
 
-            ]
+                                    new TextRun({
 
-        });
+                                        text: "Projects",
+                                        bold: true
 
+                                    })
 
-        const blob = await Packer.toBlob(doc);
+                                ]
 
+                            }),
 
-        saveAs(
+                            new Paragraph(
+                                `Project: ${resume.projectTitle || ""}`
+                            ),
 
-            blob,
+                            new Paragraph(
+                                `Technologies: ${resume.technologies || ""}`
+                            ),
 
-            `${resume.fullName || "Resume"}.docx`
+                            new Paragraph(
+                                resume.projectDescription || ""
+                            ),
 
-        );
+                            new Paragraph(
+                                `GitHub: ${resume.githubLink || ""}`
+                            ),
+
+                            new Paragraph({
+
+                                children: [
+
+                                    new TextRun({
+
+                                        text: "Certification",
+                                        bold: true
+
+                                    })
+
+                                ]
+
+                            }),
+
+                            new Paragraph(
+                                resume.certification || ""
+                            ),
+
+                            new Paragraph({
+
+                                children: [
+
+                                    new TextRun({
+
+                                        text: "Languages",
+                                        bold: true
+
+                                    })
+
+                                ]
+
+                            }),
+
+                            new Paragraph(
+                                resume.languages || ""
+                            )
+
+                        ]
+
+                    }
+
+                ]
+
+            });
+
+            const blob = await Packer.toBlob(doc);
+
+            saveAs(
+
+                blob,
+
+                `${resume.fullName || "Resume"}.docx`
+
+            );
+
+        } catch (error) {
+
+            console.log("DOCX Download Error:", error);
+
+        }
 
     };
+
 
     // Loading
     if (!resume) {
 
-        return <h2>Loading...</h2>;
+        return (
 
-    }
+            <div className="preview-loading">
 
-    return (
-
-        <div>
-
-            <div className="template-selector">
-
-                <label>
-
-                    <b>Select Template :</b>
-
-                </label>
-
-                <select
-
-                    value={template}
-
-                    onChange={(e) => setTemplate(e.target.value)}
-
-                >
-
-                    <option value="modern">
-                        Modern
-                    </option>
-
-                    <option value="classic">
-                        Classic
-                    </option>
-
-                    <option value="minimal">
-                        Minimal
-                    </option>
-
-                </select>
+                <h2>Loading Resume...</h2>
 
             </div>
 
-            {/* Download Button */}
-            <button
-                className="download-btn"
-                onClick={downloadPDF}
-            >
-                Download PDF
-            </button>
+        );
 
-            <button
-                className="download-btn"
-                onClick={downloadDOCX}
-            >
-                Download DOCX
-            </button>
+    }
 
-            {/* Resume */}
-            <div
-                id="resume"
-                className={`preview ${template}`}
-            >
 
-                {/* Header */}
+    return (
 
-                <div className="resume-header">
+        <div className="preview-page">
 
-                    <h1>{resume.fullName || "No Name"}</h1>
+            {/* Top Controls */}
 
-                    <h3>{resume.title || "Untitled Resume"}</h3>
+            <div className="preview-controls">
 
-                    <div className="contact-info">
+                <div className="template-selector">
 
-                        <span>📧 {resume.email}</span>
+                    <label>
 
-                        <span>📞 {resume.phone}</span>
+                        <b>Select Template:</b>
 
-                        <span>📍 {resume.address}</span>
+                    </label>
+
+                    <select
+
+                        value={template}
+
+                        onChange={(e) =>
+                            setTemplate(e.target.value)
+                        }
+
+                    >
+
+                        <option value="modern">
+                            Modern
+                        </option>
+
+                        <option value="classic">
+                            Classic
+                        </option>
+
+                        <option value="minimal">
+                            Minimal
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                {/* Download Buttons */}
+
+                <div className="download-actions">
+
+                    <button
+                        className="download-btn"
+                        onClick={downloadPDF}
+                    >
+                        📄 Download PDF
+                    </button>
+
+                    <button
+                        className="download-btn"
+                        onClick={downloadDOCX}
+                    >
+                        📝 Download DOCX
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            {/* Resume Wrapper */}
+
+            <div className="resume-scroll-container">
+
+                <div
+                    id="resume"
+                    className={`preview preview-${template}`}
+                >
+
+                    {/* Header */}
+
+                    <div className="resume-header">
+
+                        <h1>
+                            {resume.fullName || "No Name"}
+                        </h1>
+
+                        <h3>
+                            {resume.title || "Untitled Resume"}
+                        </h3>
+
+                        <div className="contact-info">
+
+                            {resume.email && (
+                                <span>
+                                    📧 {resume.email}
+                                </span>
+                            )}
+
+                            {resume.phone && (
+                                <span>
+                                    📞 {resume.phone}
+                                </span>
+                            )}
+
+                            {resume.address && (
+                                <span>
+                                    📍 {resume.address}
+                                </span>
+                            )}
+
+                        </div>
 
                     </div>
 
-                </div>
 
-                <hr />
+                    <hr />
 
-                {/* Objective */}
 
-                <div className="section">
+                    {/* Objective */}
 
-                    <h2>Career Objective</h2>
+                    {resume.objective && (
 
-                    <p>{resume.objective}</p>
+                        <div className="section">
 
-                </div>
+                            <h2>Career Objective</h2>
 
-                <hr />
+                            <p>
+                                {resume.objective}
+                            </p>
 
-                {/* Education */}
+                        </div>
 
-                <div className="section">
+                    )}
 
-                    <h2>Education</h2>
 
-                    <p><strong>College :</strong> {resume.college}</p>
+                    <hr />
 
-                    <p><strong>Degree :</strong> {resume.degree}</p>
 
-                    <p><strong>Branch :</strong> {resume.branch}</p>
+                    {/* Education */}
 
-                    <p><strong>University :</strong> {resume.university}</p>
+                    <div className="section">
 
-                    <p><strong>Passing Year :</strong> {resume.passingYear}</p>
+                        <h2>Education</h2>
 
-                    <p><strong>CGPA :</strong> {resume.cgpa}</p>
+                        {resume.college && (
+                            <p>
+                                <strong>College:</strong>{" "}
+                                {resume.college}
+                            </p>
+                        )}
 
-                </div>
+                        {resume.degree && (
+                            <p>
+                                <strong>Degree:</strong>{" "}
+                                {resume.degree}
+                            </p>
+                        )}
 
-                <hr />
+                        {resume.branch && (
+                            <p>
+                                <strong>Branch:</strong>{" "}
+                                {resume.branch}
+                            </p>
+                        )}
 
-                {/* Skills */}
+                        {resume.university && (
+                            <p>
+                                <strong>University:</strong>{" "}
+                                {resume.university}
+                            </p>
+                        )}
 
-                <div className="section">
+                        {resume.passingYear && (
+                            <p>
+                                <strong>Passing Year:</strong>{" "}
+                                {resume.passingYear}
+                            </p>
+                        )}
 
-                    <h2>Skills</h2>
+                        {resume.cgpa && (
+                            <p>
+                                <strong>CGPA:</strong>{" "}
+                                {resume.cgpa}
+                            </p>
+                        )}
 
-                    <div className="badge-container">
+                    </div>
 
-                        {
 
-                            Array.isArray(resume.skills)
+                    <hr />
 
-                                ?
 
-                                resume.skills.map((skill, index) => (
+                    {/* Skills */}
 
-                                    <span
-                                        key={index}
-                                        className="badge"
-                                    >
+                    <div className="section">
 
-                                        {skill}
+                        <h2>Skills</h2>
 
-                                    </span>
+                        <div className="badge-container">
 
-                                ))
+                            {Array.isArray(resume.skills)
 
-                                :
-
-                                (resume.skills || "")
-                                    .split(",")
-                                    .filter(Boolean)
-                                    .map((skill, index) => (
+                                ? resume.skills.map(
+                                    (skill, index) => (
 
                                         <span
                                             key={index}
                                             className="badge"
                                         >
-
-                                            {skill.trim()}
-
+                                            {skill}
                                         </span>
 
-                                    ))
+                                    )
+                                )
 
-                        }
+                                : (resume.skills || "")
+                                    .split(",")
+                                    .filter(Boolean)
+                                    .map(
+                                        (skill, index) => (
+
+                                            <span
+                                                key={index}
+                                                className="badge"
+                                            >
+                                                {skill.trim()}
+                                            </span>
+
+                                        )
+                                    )
+
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <hr />
+
+
+                    {/* Experience */}
+
+                    <div className="section">
+
+                        <h2>Experience</h2>
+
+                        {resume.company && (
+                            <p>
+                                <strong>Company:</strong>{" "}
+                                {resume.company}
+                            </p>
+                        )}
+
+                        {resume.jobTitle && (
+                            <p>
+                                <strong>Job Title:</strong>{" "}
+                                {resume.jobTitle}
+                            </p>
+                        )}
+
+                        {resume.jobLocation && (
+                            <p>
+                                <strong>Location:</strong>{" "}
+                                {resume.jobLocation}
+                            </p>
+                        )}
+
+                        {(resume.startDate ||
+                            resume.endDate) && (
+
+                                <p>
+
+                                    <strong>Duration:</strong>{" "}
+
+                                    {resume.startDate || ""}
+
+                                    {" - "}
+
+                                    {resume.endDate || ""}
+
+                                </p>
+
+                            )}
+
+                        {resume.jobDescription && (
+
+                            <p>
+                                {resume.jobDescription}
+                            </p>
+
+                        )}
 
                     </div>
 
-                </div>
 
-                <hr />
+                    <hr />
 
-                {/* Experience */}
 
-                <div className="section">
+                    {/* Projects */}
 
-                    <h2>Experience</h2>
+                    <div className="section">
 
-                    <p><strong>Company :</strong> {resume.company}</p>
+                        <h2>Projects</h2>
 
-                    <p><strong>Job Title :</strong> {resume.jobTitle}</p>
+                        {resume.projectTitle && (
+                            <p>
+                                <strong>Project:</strong>{" "}
+                                {resume.projectTitle}
+                            </p>
+                        )}
 
-                    <p><strong>Location :</strong> {resume.jobLocation}</p>
+                        {resume.technologies && (
+                            <p>
+                                <strong>Technologies:</strong>{" "}
+                                {resume.technologies}
+                            </p>
+                        )}
 
-                    <p><strong>Duration :</strong> {resume.startDate} - {resume.endDate}</p>
+                        {resume.projectDescription && (
+                            <p>
+                                {resume.projectDescription}
+                            </p>
+                        )}
 
-                    <p>{resume.jobDescription}</p>
+                        {resume.githubLink && (
 
-                </div>
+                            <p>
 
-                <hr />
+                                <strong>GitHub:</strong>{" "}
 
-                {/* Projects */}
+                                {resume.githubLink}
 
-                <div className="section">
+                            </p>
 
-                    <h2>Projects</h2>
-
-                    <p><strong>Project :</strong> {resume.projectTitle}</p>
-
-                    <p><strong>Technologies :</strong> {resume.technologies}</p>
-
-                    <p>{resume.projectDescription}</p>
-
-                    <p>
-
-                        <strong>GitHub :</strong>
-
-                        {resume.githubLink}
-
-                    </p>
-
-                </div>
-
-                <hr />
-                {/* Certification */}
-
-                <div className="section">
-
-                    <h2>Certification</h2>
-
-                    <p>{resume.certification}</p>
-
-                </div>
-
-                <hr />
-
-                {/* Languages */}
-
-                <div className="section">
-
-                    <h2>Languages</h2>
-
-                    <div className="badge-container">
-
-                        {
-                            resume.languages
-                                ?.split(",")
-                                .map((language, index) => (
-
-                                    <span
-                                        key={index}
-                                        className="badge"
-                                    >
-
-                                        {language.trim()}
-
-                                    </span>
-
-                                ))
-                        }
+                        )}
 
                     </div>
+
+
+                    <hr />
+
+
+                    {/* Certification */}
+
+                    {resume.certification && (
+
+                        <div className="section">
+
+                            <h2>Certification</h2>
+
+                            <p>
+                                {resume.certification}
+                            </p>
+
+                        </div>
+
+                    )}
+
+
+                    <hr />
+
+
+                    {/* Languages */}
+
+                    {resume.languages && (
+
+                        <div className="section">
+
+                            <h2>Languages</h2>
+
+                            <div className="badge-container">
+
+                                {resume.languages
+                                    .split(",")
+                                    .filter(Boolean)
+                                    .map(
+                                        (language, index) => (
+
+                                            <span
+                                                key={index}
+                                                className="badge"
+                                            >
+                                                {language.trim()}
+                                            </span>
+
+                                        )
+                                    )}
+
+                            </div>
+
+                        </div>
+
+                    )}
 
                 </div>
 

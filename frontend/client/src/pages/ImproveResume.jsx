@@ -21,17 +21,20 @@ function ImproveResume() {
     // Loading State
     const [loading, setLoading] = useState(false);
 
+
     // File Select
     const handleFileChange = (e) => {
 
-        setFile(e.target.files[0]);
+        const selectedFile = e.target.files[0];
+
+        setFile(selectedFile || null);
 
     };
+
 
     // Upload Resume
     const handleUpload = async () => {
 
-        // File Select nahi ki
         if (!file) {
 
             alert("Please Select Resume");
@@ -40,14 +43,16 @@ function ImproveResume() {
 
         }
 
-        // Form Data
+
         const formData = new FormData();
 
         formData.append("resume", file);
 
+
         try {
 
             setLoading(true);
+
 
             const response = await api.post(
 
@@ -56,22 +61,22 @@ function ImproveResume() {
                 formData,
 
                 {
-
                     headers: {
-
                         "Content-Type": "multipart/form-data"
-
                     }
-
                 }
 
             );
 
-            // Upload Success
-            alert(response.data.message);
 
-            // AI Improve API Call
-            // AI Result Page
+            console.log("UPLOAD RESPONSE:", response.data);
+
+
+            alert(
+                response.data.message || "Resume Uploaded Successfully"
+            );
+
+
             navigate("/ai-result", {
 
                 state: {
@@ -84,9 +89,14 @@ function ImproveResume() {
 
         }
 
+
         catch (error) {
 
-            console.log(error.response?.data);
+            console.log(
+                "UPLOAD ERROR:",
+                error.response?.data || error
+            );
+
 
             alert(
 
@@ -98,6 +108,7 @@ function ImproveResume() {
 
         }
 
+
         finally {
 
             setLoading(false);
@@ -106,24 +117,25 @@ function ImproveResume() {
 
     };
 
+
     return (
 
         <div className="improve-container">
 
+
             <h1>
-
                 Improve Existing Resume
-
             </h1>
 
-            <p>
 
+            <p>
                 Upload your existing Resume (PDF or DOCX)
                 and improve it using AI.
-
             </p>
 
+
             {/* File Input */}
+
             <input
 
                 type="file"
@@ -134,11 +146,27 @@ function ImproveResume() {
 
             />
 
-            <br />
-            <br />
+
+            {/* Selected File */}
+
+            {file && (
+
+                <p className="selected-file">
+
+                    Selected: {file.name}
+
+                </p>
+
+            )}
+
 
             {/* Upload Button */}
+
             <button
+
+                type="button"
+
+                className="upload-btn"
 
                 onClick={handleUpload}
 
@@ -146,29 +174,25 @@ function ImproveResume() {
 
             >
 
-                {
-
-                    loading
-
-                        ?
-
-                        "Uploading..."
-
-                        :
-
-                        "Upload Resume"
-
+                {loading
+                    ? "Uploading..."
+                    : "Upload Resume"
                 }
 
             </button>
 
-            <br />
-            <br />
 
-            {/* Back Button */}
+            {/* Back Dashboard */}
+
             <button
 
+                type="button"
+
+                className="back-dashboard-btn"
+
                 onClick={() => navigate("/dashboard")}
+
+                disabled={loading}
 
             >
 
@@ -176,10 +200,12 @@ function ImproveResume() {
 
             </button>
 
+
         </div>
 
     );
 
 }
+
 
 export default ImproveResume;

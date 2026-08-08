@@ -1,105 +1,75 @@
-// AI Suggestion Controller
+const { GoogleGenAI } = require("@google/genai");
 
-// Resume Improve Suggestion
+console.log("Gemini Key:", process.env.GEMINI_API_KEY);
+
+const ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY,
+});
+
 const improveResume = async (req, res) => {
 
     try {
 
-        // Frontend se Data lena
         const resumeData = req.body;
 
-        // Improved Summary
-        const improvedSummary = `Highly motivated ${
-            resumeData.fullName || "candidate"
-        } with strong skills in ${
-            resumeData.skills || "software development"
-        }. Passionate about continuous learning and contributing to organizational growth.`;
+        const prompt = `
+You are an expert ATS Resume Reviewer.
 
-        // Skills Array banana
-        const improvedSkills = resumeData.skills
-            ? resumeData.skills.split(",").map(skill => skill.trim())
-            : [];
+Analyze this resume and return ONLY valid JSON.
 
-        // Response
-        res.status(200).json({
+Resume Data:
+${JSON.stringify(resumeData, null, 2)}
 
-            success: true,
+Return JSON in exactly this format:
 
-            message: "Resume Improved Successfully",
-
-            result: {
-
-    improvedSummary,
-
-    atsScore: 84,
-
-    strengths: [
-
-        "Strong communication skills",
-
-        "Knowledge of MERN Stack",
-
-        "Problem-solving ability"
-
-    ],
-
-    weaknesses: [
-
-        "Add more real-world projects",
-
-        "Include certifications",
-
-        "Mention measurable achievements"
-
-    ],
-
-    skills: improvedSkills,
-
-    suggestions: [
-
-        "Use action verbs in experience",
-
-        "Quantify achievements with numbers",
-
-        "Keep resume limited to one page"
-
-    ],
-
-    missingKeywords: [
-
-        "Leadership",
-
-        "Team Collaboration",
-
-        "Communication",
-
-        "Problem Solving"
-
-    ]
-
+{
+  "improvedSummary": "string",
+  "atsScore": 0,
+  "strengths": [],
+  "weaknesses": [],
+  "skills": [],
+  "suggestions": [],
+  "missingKeywords": []
 }
 
+Do not write markdown.
+Do not write explanation.
+Only return JSON.
+`;
+
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt,
         });
 
-    }
+        let text = response.text;
 
-    catch (error) {
+        text = text
+            .replace(/```json/g, "")
+            .replace(/```/g, "")
+            .trim();
+
+        const result = JSON.parse(text);
+
+        res.status(200).json({
+            success: true,
+            message: "Resume Improved Successfully",
+            result,
+        });
+
+    } catch (error) {
+
+        console.error(error);
 
         res.status(500).json({
-
             success: false,
-
-            message: error.message
-
+            message: error.message,
         });
 
     }
 
 };
 
-// Export
 module.exports = {
-
-    improveResume
-
+    improveResume,
 };

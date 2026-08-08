@@ -1,51 +1,231 @@
-.improve-container{
+/* =========================
+   IMPROVE RESUME PAGE
+========================= */
 
-    width:500px;
+.improve-container {
 
-    margin:60px auto;
+    width: 100%;
 
-    background:white;
+    max-width: 550px;
 
-    padding:30px;
+    margin: 50px auto;
 
-    border-radius:10px;
+    padding: 35px;
 
-    text-align:center;
+    box-sizing: border-box;
 
-    box-shadow:0 0 10px rgba(0,0,0,.1);
+    background: white;
 
-}
+    border-radius: 16px;
 
-.improve-container h1{
+    text-align: center;
 
-    margin-bottom:15px;
-
-}
-
-.improve-container p{
-
-    margin-bottom:20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
 
 }
 
-.improve-container input{
 
-    margin:20px 0;
+/* Heading */
+
+.improve-container h1 {
+
+    margin: 0 0 15px;
+
+    font-size: 30px;
+
+    color: #1f2937;
 
 }
 
-.improve-container button{
 
-    padding:10px 20px;
+/* Description */
 
-    border:none;
+.improve-container p {
 
-    background:#2563eb;
+    margin-bottom: 25px;
 
-    color:white;
+    color: #6b7280;
 
-    border-radius:5px;
+    line-height: 1.6;
 
-    cursor:pointer;
+}
+
+
+/* File Input */
+
+.improve-container input[type="file"] {
+
+    width: 100%;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    margin: 10px 0 25px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    background: #f9fafb;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+}
+
+
+/* Button */
+
+.improve-container button {
+
+    width: 100%;
+
+    padding: 13px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+.improve-container button:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+    .improve-container {
+
+        max-width: 90%;
+
+        margin: 40px auto;
+
+        padding: 30px;
+
+    }
+
+    .improve-container h1 {
+
+        font-size: 27px;
+
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .improve-container {
+
+        width: calc(100% - 30px);
+
+        max-width: none;
+
+        margin: 25px auto;
+
+        padding: 22px 18px;
+
+        border-radius: 12px;
+
+    }
+
+    .improve-container h1 {
+
+        font-size: 24px;
+
+    }
+
+    .improve-container p {
+
+        font-size: 14px;
+
+    }
+
+    .improve-container input[type="file"] {
+
+        font-size: 13px;
+
+        padding: 10px;
+
+    }
+
+    .improve-container button {
+
+        padding: 13px;
+
+        font-size: 15px;
+
+    }
+
+}
+
+.selected-file {
+
+    margin-top: 5px;
+
+    margin-bottom: 20px !important;
+
+    padding: 10px;
+
+    background: #eff6ff;
+
+    border-radius: 8px;
+
+    color: #2563eb !important;
+
+    font-size: 14px;
+
+    word-break: break-word;
+
+}
+
+
+.upload-btn {
+
+    margin-top: 0 !important;
+
+}
+
+
+.back-dashboard-btn {
+
+    margin-top: 12px !important;
+
+    background: #6b7280 !important;
+
+}
+
+
+.back-dashboard-btn:hover {
+
+    background: #4b5563 !important;
 
 }

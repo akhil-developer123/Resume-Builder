@@ -1,13 +1,19 @@
 const express = require("express");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
+require("dotenv").config();
 const cors = require("cors");
 const protect = require("./middleware/authMiddleware");
 const aiRoutes = require("./routes/aiRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const dns=require("dns");
 
 const connectDB = require("./config/db"); 
+dns.setServers(["8.8.8.8","8.8.4.4"]);
 
-dotenv.config();
+// dotenv.config();
+
+// console.log("ENV Keys:", Object.keys(process.env));
+// console.log("Gemini:", process.env.GEMINI_API_KEY);
 
 connectDB();
 

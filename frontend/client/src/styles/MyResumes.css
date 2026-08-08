@@ -1,185 +1,387 @@
-.my-resumes-container{
+/* =========================
+   Main Container
+========================= */
 
-    width:85%;
+.my-resumes-container {
 
-    margin:40px auto;
+    width: 85%;
 
-}
+    max-width: 1100px;
 
+    margin: 40px auto;
 
-.my-resumes-container h1{
+    padding: 0 10px;
 
-    text-align:center;
-
-    margin-bottom:25px;
-
-    font-size:32px;
-
-}
-
-
-
-.search-input{
-
-    width:100%;
-
-    padding:14px;
-
-    margin-bottom:25px;
-
-    border:1px solid #ddd;
-
-    border-radius:10px;
-
-    font-size:16px;
+    box-sizing: border-box;
 
 }
 
 
+/* =========================
+   Page Heading
+========================= */
 
-.resume-card{
+.my-resumes-container h1 {
 
-    background:white;
+    text-align: center;
 
-    padding:25px;
+    margin-bottom: 25px;
 
-    margin-bottom:25px;
+    font-size: 32px;
 
-    border-radius:15px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,0.12);
-
-    transition:0.3s;
-
-}
-
-
-
-.resume-card:hover{
-
-    transform:translateY(-5px);
+    color: #d7e1ef;
 
 }
 
 
+/* =========================
+   Search Input
+========================= */
 
-.resume-card h2{
+.search-input {
 
-    margin-bottom:15px;
+    width: 100%;
 
-    color:#1f2937;
+    padding: 14px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+}
+
+
+.search-input:focus {
+
+    border-color: #2563eb;
+
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.2);
 
 }
 
 
+/* =========================
+   Resume Card
+========================= */
 
-.resume-card p{
+.resume-card {
 
-    margin:8px 0;
+    width: 100%;
 
-    color:#555;
+    background: white;
+
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+
+    transition: 0.3s;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+}
+
+
+.resume-card:hover {
+
+    transform: translateY(-5px);
 
 }
 
 
+/* =========================
+   Resume Title
+========================= */
 
-.resume-card button{
+.resume-card h2 {
 
-    padding:10px 15px;
+    margin-bottom: 15px;
 
-    margin:8px 8px 0 0;
+    color: #1f2937;
 
-    border:none;
+    font-size: 22px;
 
-    border-radius:8px;
-
-    cursor:pointer;
-
-    color:white;
-
-    font-size:14px;
+    word-break: break-word;
 
 }
 
+
+/* =========================
+   Resume Details
+========================= */
+
+.resume-card p {
+
+    margin: 8px 0;
+
+    color: #555;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+
+}
+
+
+/* =========================
+   Resume Buttons
+========================= */
+
+.resume-card button {
+
+    padding: 10px 15px;
+
+    margin: 8px 8px 0 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+
+    max-width: 100%;
+
+}
+
+
+.resume-card button:hover {
+
+    opacity: 0.85;
+
+    transform: translateY(-1px);
+
+}
 
 
 /* Rename */
 
-.resume-card button:nth-of-type(1){
+.resume-card button:nth-of-type(1) {
 
-    background:#2563eb;
+    background: #2563eb;
 
 }
 
 
 /* Duplicate */
 
-.resume-card button:nth-of-type(2){
+.resume-card button:nth-of-type(2) {
 
-    background:#10b981;
+    background: #10b981;
 
 }
 
 
 /* Edit */
 
-.resume-card button:nth-of-type(3){
+.resume-card button:nth-of-type(3) {
 
-    background:#f59e0b;
+    background: #f59e0b;
 
 }
 
 
 /* Preview */
 
-.resume-card button:nth-of-type(4){
+.resume-card button:nth-of-type(4) {
 
-    background:#8b5cf6;
+    background: #8b5cf6;
 
 }
 
 
 /* Delete */
 
-.resume-card button:nth-of-type(5){
+.resume-card button:nth-of-type(5) {
 
-    background:#ef4444;
-
-}
-
-
-
-.resume-card button:hover{
-
-    opacity:0.85;
+    background: #ef4444;
 
 }
 
 
+/* =========================
+   Back Button
+========================= */
 
-.back-btn{
+.back-btn {
 
-    margin-top:20px;
+    margin-top: 20px;
 
-    padding:12px 25px;
+    padding: 12px 25px;
 
-    border:none;
+    border: none;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    background:#2563eb;
+    background: #2563eb;
 
-    color:white;
+    color: white;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    font-size:16px;
+    font-size: 16px;
+
+    transition: 0.2s;
 
 }
 
 
-.back-btn:hover{
+.back-btn:hover {
 
-    background:#1d4ed8;
+    background: #1d4ed8;
+
+}
+
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 768px) {
+
+    .my-resumes-container {
+
+        width: 92%;
+
+        margin: 30px auto;
+
+        padding: 0 5px;
+
+    }
+
+
+    .my-resumes-container h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    .resume-card {
+
+        padding: 20px;
+
+    }
+
+
+    .resume-card h2 {
+
+        font-size: 20px;
+
+    }
+
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 480px) {
+
+    .my-resumes-container {
+
+        width: 100%;
+
+        margin: 20px auto;
+
+        padding: 0 12px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .my-resumes-container h1 {
+
+        font-size: 25px;
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .search-input {
+
+        width: 100%;
+
+        padding: 12px;
+
+        font-size: 15px;
+
+    }
+
+
+    .resume-card {
+
+        width: 100%;
+
+        padding: 18px;
+
+        margin-bottom: 18px;
+
+        border-radius: 12px;
+
+        box-sizing: border-box;
+
+    }
+
+
+    .resume-card h2 {
+
+        font-size: 18px;
+
+        line-height: 1.4;
+
+    }
+
+
+    .resume-card p {
+
+        font-size: 14px;
+
+    }
+
+
+    /* Buttons mobile par properly wrap honge */
+
+    .resume-card button {
+
+        margin: 7px 5px 0 0;
+
+        padding: 9px 12px;
+
+        font-size: 13px;
+
+    }
+
+
+    .back-btn {
+
+        width: 100%;
+
+        padding: 12px;
+
+        margin-bottom: 20px;
+
+    }
 
 }
